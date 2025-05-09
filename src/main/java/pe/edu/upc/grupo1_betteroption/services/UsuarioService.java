@@ -27,7 +27,9 @@ public class UsuarioService implements IUsuarioService {
 
     @Override
     public List<UsuarioDto> getUsuarios() {
-        return modelMapper.map(usuariorepository.findAll(), List.class);
+        return usuariorepository.findAll().stream()
+                .map(usuario -> modelMapper.map(usuario, UsuarioDto.class))
+                .toList();
     }
 
 
