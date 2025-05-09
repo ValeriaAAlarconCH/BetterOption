@@ -1,7 +1,9 @@
 package pe.edu.upc.grupo1_betteroption.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
@@ -9,23 +11,24 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "Usuario")
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_usuario", nullable = false)
     private Long id_usuario;
 
-    @Column(name = "nombre", nullable = false, length = 100)
+    @Column(name = "nombre", nullable = false)
     private String nombre;
 
-    @Column(name = "correo", nullable = false, length = 100)
+    @Column(name = "correo", nullable = false)
     private String correo;
 
-    @Column(name = "password", nullable = false, length = 100)
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "rol", nullable = false, length = 100)
+    @Column(name = "rol", nullable = false)
     private String rol;
 
     @Column(name = "fecha_registro", nullable = false)
