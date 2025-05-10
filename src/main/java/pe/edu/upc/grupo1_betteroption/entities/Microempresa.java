@@ -31,4 +31,8 @@ public class Microempresa {
 
     @Column(name = "descripcion", nullable = false, length = 100)
     private String descripcion;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_usuario", nullable = false)
+    private Usuario usuario;
 }

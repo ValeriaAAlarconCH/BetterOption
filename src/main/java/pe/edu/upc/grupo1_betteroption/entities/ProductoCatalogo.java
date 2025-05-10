@@ -14,8 +14,8 @@ public class ProductoCatalogo {
     @Column(name = "id_productocatalogo", nullable = false)
     private Long id_productocatalogo;
 
-    @Column(name = "descuento_porcentaje", nullable = false)
-    private Integer descuentoPorcentaje;
+    @Column(name = "descuento_porcentaje", nullable = false) //revisar
+    private Double descuentoPorcentaje;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_catalogopromociones", nullable = false)
