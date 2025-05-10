@@ -11,6 +11,7 @@ import lombok.Setter;
 import pe.edu.upc.grupo1_betteroption.entities.Categoria;
 import pe.edu.upc.grupo1_betteroption.entities.Microempresa;
 
+import java.awt.font.TextAttribute;
 import java.io.Serializable;
 
 @Getter
@@ -23,7 +24,7 @@ public class ProductoDto implements Serializable {
     private String descripcion;
     private Integer precio;
     private Integer stock;
-    private String imagen;
+    private TextAttribute imagen;
     private Microempresa microempresa;
     private Categoria categoria;
 

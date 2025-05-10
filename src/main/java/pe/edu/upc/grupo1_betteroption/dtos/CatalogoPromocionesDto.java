@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class CatalogoPromocionesDto implements Serializable {
     private Long id_catalogopromociones;
-    private String nombreCatalogo;
+    private String nombre_catalogo;
     private String descripcion;
     private LocalDate fechaInicio;
     private LocalDate fechaFin;

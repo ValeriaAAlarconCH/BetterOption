@@ -26,6 +26,10 @@ public class Notificacion {
     private LocalDate fechaEnvio;
 
     @Column(name = "leido", nullable = false)
-    private Integer leido;
+    private Boolean leido;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_usuario", nullable = false)
+    private Usuario usuario;
 
 }

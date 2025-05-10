@@ -13,6 +13,6 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class CategoriaDto implements Serializable {
     private Long id_categoria;
-    private String nombreCategoria;
+    private String nombre_categoria;
     private String descripcion;
 }

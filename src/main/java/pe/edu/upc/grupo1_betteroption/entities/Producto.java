@@ -3,6 +3,9 @@ package pe.edu.upc.grupo1_betteroption.entities;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.w3c.dom.Text;
+
+import java.awt.font.TextAttribute;
 
 @Getter
 @Setter
@@ -21,13 +24,13 @@ public class Producto {
     private String descripcion;
 
     @Column(name = "precio", nullable = false)
-    private Integer precio;
+    private Double precio;
 
     @Column(name = "stock", nullable = false)
     private Integer stock;
 
     @Column(name = "imagen", nullable = false, length = Integer.MAX_VALUE)
-    private String imagen;
+    private TextAttribute imagen;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_microempresa", nullable = false)
