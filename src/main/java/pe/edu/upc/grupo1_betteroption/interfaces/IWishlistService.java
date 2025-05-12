@@ -8,4 +8,6 @@ public interface IWishlistService {
     public WishlistDto grabarWishlist(WishlistDto wishlistdto);
 
     public List<WishlistDto> getWishlists();
+
+    void eliminar(Long id);
 }

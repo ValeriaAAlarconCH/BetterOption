@@ -31,4 +31,13 @@ public class WishlistService implements IWishlistService {
                 .map(wishlist -> modelMapper.map(wishlist, WishlistDto.class))
                 .toList();
     }
+
+    @Override
+    public void eliminar(Long id) {
+        if (wishlistrepository.existsById(id)) {
+            wishlistrepository.deleteById(id);
+        } else {
+            throw new RuntimeException("No se encontró el wishlist con ID: " + id);
+        }
+    }
 }
