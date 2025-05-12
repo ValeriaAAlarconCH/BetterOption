@@ -31,4 +31,13 @@ public class CatalogoPromocionesService implements ICatalogoPromocionesService {
                 .map(catalogopromociones -> modelMapper.map(catalogopromociones, CatalogoPromocionesDto.class))
                 .toList();
     }
+
+    @Override
+    public void eliminar(Long id) {
+        if (catalogopromocionesrepository.existsById(id)) {
+            catalogopromocionesrepository.deleteById(id);
+        } else {
+            throw new RuntimeException("No se encontró el ID: " + id);
+        }
+    }
 }
