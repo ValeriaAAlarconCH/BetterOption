@@ -23,4 +23,10 @@ public class ProductoCatalogoController {
     public ResponseEntity<List<ProductoCatalogoDto>> getProdctoCatalogos() {
         return ResponseEntity.ok(productocatalogoservice.getProductosCatalogos());
     }
+
+    @DeleteMapping("/eliminar/{id}")
+    public ResponseEntity<String> eliminar(@PathVariable("id") Long id) {
+        productocatalogoservice.eliminar(id);
+        return ResponseEntity.ok("Eliminado correctamente");
+    }
 }

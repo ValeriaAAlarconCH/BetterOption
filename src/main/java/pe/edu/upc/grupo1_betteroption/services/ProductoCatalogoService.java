@@ -31,4 +31,13 @@ public class ProductoCatalogoService implements IProductoCatalogoService {
                 .map(productocatalogo -> modelMapper.map(productocatalogo, ProductoCatalogoDto.class))
                 .toList();
     }
+
+    @Override
+    public void eliminar(Long id) {
+        if (productocatalogorepository.existsById(id)) {
+            productocatalogorepository.deleteById(id);
+        } else {
+            throw new RuntimeException("No se encontró el ID: " + id);
+        }
+    }
 }

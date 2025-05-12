@@ -8,4 +8,6 @@ public interface IProductoCatalogoService {
     public ProductoCatalogoDto grabarProductoCatalogo(ProductoCatalogoDto productocatalogodto);
 
     public List<ProductoCatalogoDto> getProductosCatalogos();
+
+    void eliminar(Long id);
 }
