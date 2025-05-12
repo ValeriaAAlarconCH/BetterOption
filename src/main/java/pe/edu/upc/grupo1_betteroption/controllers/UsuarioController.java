@@ -25,4 +25,10 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioservice.getUsuarios());
     }
 
+    @DeleteMapping("/eliminar/{id}")
+    public ResponseEntity<String> eliminarUsuario(@PathVariable("id") Long id) {
+        usuarioservice.eliminarUsuario(id);
+        return ResponseEntity.ok("Usuario eliminado correctamente");
+    }
+
 }

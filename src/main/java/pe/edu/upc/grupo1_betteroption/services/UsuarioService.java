@@ -32,5 +32,14 @@ public class UsuarioService implements IUsuarioService {
                 .toList();
     }
 
+    @Override
+    public void eliminarUsuario(Long id) {
+        if (usuariorepository.existsById(id)) {
+            usuariorepository.deleteById(id);
+        } else {
+            throw new RuntimeException("No se encontró el usuario con ID: " + id);
+        }
+    }
+
 
 }
