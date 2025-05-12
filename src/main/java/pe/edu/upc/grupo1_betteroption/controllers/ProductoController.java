@@ -36,10 +36,10 @@ public class ProductoController {
         return ResponseEntity.ok(productoservice.buscarPorNombre(nombre));
     }
 
-    @GetMapping("/FiltroCategoria/{idCategoria}")
-    public ResponseEntity<List<ProductoDto>> filtrarPorCategoria(@PathVariable Long idCategoria) {
-        return ResponseEntity.ok(productoservice.filtrarPorCategoria(idCategoria));
-    }
+//    @GetMapping("/FiltroCategoria/{idCategoria}")
+//    public ResponseEntity<List<ProductoDto>> filtrarPorCategoria(@PathVariable Long idCategoria) {
+//        return ResponseEntity.ok(productoservice.filtrarPorCategoria(idCategoria));
+//    }
 
     @GetMapping("/FiltroPrecio")
     public ResponseEntity<List<ProductoDto>> filtrarPorPrecio(@RequestParam Double min, @RequestParam Double max) {
