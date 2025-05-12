@@ -49,11 +49,11 @@ public class ProductoService implements IProductoService {
                 .stream().map(p -> modelMapper.map(p, ProductoDto.class)).collect(Collectors.toList());
     }
 
-    @Override
-    public List<ProductoDto> filtrarPorCategoria(Long idCategoria) {
-        return productorepository.findByCategoria_Id_categoria(idCategoria)
-                .stream().map(p -> modelMapper.map(p, ProductoDto.class)).collect(Collectors.toList());
-    }
+//    @Override
+//    public List<ProductoDto> filtrarPorCategoria(Long idCategoria) {
+//        return productorepository.findByCategoria_Id_categoria(idCategoria)
+//                .stream().map(p -> modelMapper.map(p, ProductoDto.class)).collect(Collectors.toList());
+//    }
 
     @Override
     public List<ProductoDto> filtrarPorPrecio(Double min, Double max) {
