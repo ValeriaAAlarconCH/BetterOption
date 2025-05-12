@@ -25,4 +25,10 @@ public class CategoriaController {
         return ResponseEntity.ok(categoriaservice.getCategorias());
     }
 
+    @DeleteMapping("/eliminar/{id}")
+    public ResponseEntity<String> eliminar(@PathVariable("id") Long id) {
+        categoriaservice.eliminar(id);
+        return ResponseEntity.ok("Eliminado correctamente");
+    }
+
 }
