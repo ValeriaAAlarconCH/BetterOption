@@ -32,4 +32,13 @@ public class CategoriaService implements ICategoriaService {
                 .map(categoria -> modelMapper.map(categoria, CategoriaDto.class))
                 .toList();
     }
+
+    @Override
+    public void eliminar(Long id) {
+        if (categoriarepository.existsById(id)) {
+            categoriarepository.deleteById(id);
+        } else {
+            throw new RuntimeException("No se encontró el ID: " + id);
+        }
+    }
 }

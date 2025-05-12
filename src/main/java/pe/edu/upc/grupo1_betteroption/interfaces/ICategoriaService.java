@@ -8,4 +8,7 @@ public interface ICategoriaService {
     public CategoriaDto grabarCategoria(CategoriaDto categoriadto);
 
     public List<CategoriaDto> getCategorias();
+
+    void eliminar(Long id);
+
 }
