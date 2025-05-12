@@ -24,4 +24,10 @@ public class MicroempresaController {
         return ResponseEntity.ok(microempresaservice.getMicroempresas());
     }
 
+    @DeleteMapping("/eliminar/{id}")
+    public ResponseEntity<String> eliminar(@PathVariable("id") Long id) {
+        microempresaservice.eliminar(id);
+        return ResponseEntity.ok("Eliminado correctamente");
+    }
+
 }
