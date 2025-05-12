@@ -32,4 +32,13 @@ public class NotificacionService implements INotificacionService {
                 .map(notificacion -> modelMapper.map(notificacion, NotificacionDto.class))
                 .toList();
     }
+
+    @Override
+    public void eliminar(Long id) {
+        if (notificacionrepository.existsById(id)) {
+            notificacionrepository.deleteById(id);
+        } else {
+            throw new RuntimeException("No se encontró el ID: " + id);
+        }
+    }
 }
