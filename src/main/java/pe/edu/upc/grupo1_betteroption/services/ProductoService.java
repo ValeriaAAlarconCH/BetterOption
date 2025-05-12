@@ -31,4 +31,13 @@ public class ProductoService implements IProductoService {
                 .map(producto -> modelMapper.map(producto, ProductoDto.class))
                 .toList();
     }
+
+    @Override
+    public void eliminarProducto(Long id) {
+        if (productorepository.existsById(id)) {
+            productorepository.deleteById(id);
+        } else {
+            throw new RuntimeException("No se encontró el usuario con ID: " + id);
+        }
+    }
 }
