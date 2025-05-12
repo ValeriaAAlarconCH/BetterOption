@@ -38,7 +38,7 @@ public class NotificacionService implements INotificacionService {
         if (notificacionrepository.existsById(id)) {
             notificacionrepository.deleteById(id);
         } else {
-            throw new RuntimeException("No se encontró el ID: " + id);
+            throw new RuntimeException("No se encontró la Notificación con ID: " + id);
         }
     }
 }

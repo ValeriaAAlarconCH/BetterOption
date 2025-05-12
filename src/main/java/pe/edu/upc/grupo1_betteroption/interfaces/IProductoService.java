@@ -9,6 +9,6 @@ public interface IProductoService {
 
     public List<ProductoDto> getProductos();
 
-    void eliminarProducto(Long id);
+    void eliminar(Long id);
 
 }
