@@ -24,4 +24,10 @@ public class NotificacionController {
         return ResponseEntity.ok(notificacionservice.getNotificaciones());
     }
 
+    @DeleteMapping("/eliminar/{id}")
+    public ResponseEntity<String> eliminar(@PathVariable("id") Long id) {
+        notificacionservice.eliminar(id);
+        return ResponseEntity.ok("Eliminado correctamente");
+    }
+
 }

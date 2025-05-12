@@ -8,4 +8,7 @@ public interface INotificacionService {
     public NotificacionDto grabarNotificacion(NotificacionDto notificaciondto);
 
     public List<NotificacionDto> getNotificaciones();
+
+    void eliminar(Long id);
+
 }

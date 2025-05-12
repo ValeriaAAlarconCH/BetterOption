@@ -31,4 +31,13 @@ public class MicroempresaService implements IMicroempresaService {
                 .map(microempresa -> modelMapper.map(microempresa, MicroempresaDto.class))
                 .toList();
     }
+
+    @Override
+    public void eliminar(Long id) {
+        if (microempresarepository.existsById(id)) {
+            microempresarepository.deleteById(id);
+        } else {
+            throw new RuntimeException("No se encontró el ID: " + id);
+        }
+    }
 }

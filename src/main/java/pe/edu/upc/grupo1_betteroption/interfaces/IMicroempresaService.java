@@ -8,4 +8,6 @@ public interface IMicroempresaService {
     public MicroempresaDto grabarMicroempresa(MicroempresaDto microempresadto);
 
     public List<MicroempresaDto> getMicroempresas();
+
+    void eliminar(Long id);
 }
