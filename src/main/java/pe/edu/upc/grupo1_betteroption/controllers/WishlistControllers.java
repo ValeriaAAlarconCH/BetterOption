@@ -24,4 +24,11 @@ public class WishlistControllers {
         return ResponseEntity.ok(wishlistservice.getWishlists());
     }
 
+    @DeleteMapping("/eliminar/{id}")
+    public ResponseEntity<String> eliminar(@PathVariable("id") Long id) {
+        wishlistservice.eliminar(id);
+        return ResponseEntity.ok("Wishlist eliminado correctamente");
+    }
+
+
 }
