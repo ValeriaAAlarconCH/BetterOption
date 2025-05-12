@@ -27,7 +27,7 @@ public class CatalogoPromocionesController {
     @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<String> eliminar(@PathVariable("id") Long id) {
         catalogopromocionesservice.eliminar(id);
-        return ResponseEntity.ok("Eliminado correctamente");
+        return ResponseEntity.ok("CatalogoPromociones Eliminado correctamente");
     }
 
 }

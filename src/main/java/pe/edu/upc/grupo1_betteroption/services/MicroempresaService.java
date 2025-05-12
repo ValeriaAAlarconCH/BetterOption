@@ -37,7 +37,7 @@ public class MicroempresaService implements IMicroempresaService {
         if (microempresarepository.existsById(id)) {
             microempresarepository.deleteById(id);
         } else {
-            throw new RuntimeException("No se encontró el ID: " + id);
+            throw new RuntimeException("No se encontró la Microempresa con ID: " + id);
         }
     }
 }

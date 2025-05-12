@@ -27,7 +27,7 @@ public class MicroempresaController {
     @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<String> eliminar(@PathVariable("id") Long id) {
         microempresaservice.eliminar(id);
-        return ResponseEntity.ok("Eliminado correctamente");
+        return ResponseEntity.ok("Microempresa eliminada correctamente");
     }
 
 }

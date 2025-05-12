@@ -37,7 +37,7 @@ public class ProductoCatalogoService implements IProductoCatalogoService {
         if (productocatalogorepository.existsById(id)) {
             productocatalogorepository.deleteById(id);
         } else {
-            throw new RuntimeException("No se encontró el ID: " + id);
+            throw new RuntimeException("No se encontró el ProductoCatalogo con ID: " + id);
         }
     }
 }

@@ -33,7 +33,7 @@ public class ProductoService implements IProductoService {
     }
 
     @Override
-    public void eliminarProducto(Long id) {
+    public void eliminar(Long id) {
         if (productorepository.existsById(id)) {
             productorepository.deleteById(id);
         } else {

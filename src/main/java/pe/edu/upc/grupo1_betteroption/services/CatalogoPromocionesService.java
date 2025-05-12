@@ -37,7 +37,7 @@ public class CatalogoPromocionesService implements ICatalogoPromocionesService {
         if (catalogopromocionesrepository.existsById(id)) {
             catalogopromocionesrepository.deleteById(id);
         } else {
-            throw new RuntimeException("No se encontró el ID: " + id);
+            throw new RuntimeException("No se encontró el CatalogoPromociones con ID: " + id);
         }
     }
 }

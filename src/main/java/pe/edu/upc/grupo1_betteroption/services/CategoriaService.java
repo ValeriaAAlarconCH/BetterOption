@@ -38,7 +38,7 @@ public class CategoriaService implements ICategoriaService {
         if (categoriarepository.existsById(id)) {
             categoriarepository.deleteById(id);
         } else {
-            throw new RuntimeException("No se encontró el ID: " + id);
+            throw new RuntimeException("No se encontró la categoria con ID: " + id);
         }
     }
 }

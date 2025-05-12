@@ -33,7 +33,7 @@ public class UsuarioService implements IUsuarioService {
     }
 
     @Override
-    public void eliminarUsuario(Long id) {
+    public void eliminar(Long id) {
         if (usuariorepository.existsById(id)) {
             usuariorepository.deleteById(id);
         } else {

@@ -9,5 +9,5 @@ public interface IUsuarioService {
 
     public List<UsuarioDto> getUsuarios();
 
-    void eliminarUsuario(Long id);
+    void eliminar(Long id);
 }
