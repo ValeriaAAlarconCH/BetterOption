@@ -8,4 +8,6 @@ public interface IUsuarioService {
     public UsuarioDto grabarUsuario(UsuarioDto usuariodto);
 
     public List<UsuarioDto> getUsuarios();
+
+    void eliminarUsuario(Long id);
 }
