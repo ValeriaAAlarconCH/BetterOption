@@ -24,4 +24,10 @@ public class ProductoController {
         return ResponseEntity.ok(productoservice.getProductos());
     }
 
+    @DeleteMapping("/eliminar/{id}")
+    public ResponseEntity<String> eliminarUsuario(@PathVariable("id") Long id) {
+        productoservice.eliminarProducto(id);
+        return ResponseEntity.ok("Usuario eliminado correctamente");
+    }
+
 }
