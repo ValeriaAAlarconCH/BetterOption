@@ -1,13 +1,13 @@
 package pe.edu.upc.grupo1_betteroption.security.controllers;
 
-import com.upc.products.security.entities.User;
-import com.upc.products.security.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import pe.edu.upc.grupo1_betteroption.security.entities.User;
+import pe.edu.upc.grupo1_betteroption.security.services.UserService;
 
 //@CrossOrigin(origins = "${ip.frontend}")
 @CrossOrigin(origins = "${ip.frontend}", allowCredentials = "true", exposedHeaders = "Authorization") //para cloud

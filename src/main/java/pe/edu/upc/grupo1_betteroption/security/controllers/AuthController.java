@@ -1,9 +1,8 @@
 package pe.edu.upc.grupo1_betteroption.security.controllers;
 
-import com.upc.products.security.dtos.AuthRequestDTO;
-import com.upc.products.security.dtos.AuthResponseDTO;
-import com.upc.products.security.services.CustomUserDetailsService;
-import com.upc.products.security.util.JwtUtil;
+import pe.edu.upc.grupo1_betteroption.security.dtos.AuthRequestDTO;
+
+import pe.edu.upc.grupo1_betteroption.security.dtos.AuthResponseDTO;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,6 +14,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import pe.edu.upc.grupo1_betteroption.security.services.CustomUserDetailsService;
+import pe.edu.upc.grupo1_betteroption.security.util.JwtUtil;
 
 import java.util.Set;
 import java.util.stream.Collectors;

@@ -1,6 +1,5 @@
 package pe.edu.upc.grupo1_betteroption.security.filters;
-import com.upc.products.security.services.CustomUserDetailsService;
-import com.upc.products.security.util.JwtUtil;
+
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,6 +10,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import pe.edu.upc.grupo1_betteroption.security.services.CustomUserDetailsService;
+import pe.edu.upc.grupo1_betteroption.security.util.JwtUtil;
 
 import java.io.IOException;
 
