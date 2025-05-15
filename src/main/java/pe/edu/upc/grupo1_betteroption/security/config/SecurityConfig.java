@@ -1,7 +1,5 @@
 package pe.edu.upc.grupo1_betteroption.security.config;
 
-import com.upc.products.security.filters.JwtRequestFilter;
-import com.upc.products.security.services.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,6 +13,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import pe.edu.upc.grupo1_betteroption.security.filters.JwtRequestFilter;
+import pe.edu.upc.grupo1_betteroption.security.services.CustomUserDetailsService;
 
 
 @Configuration

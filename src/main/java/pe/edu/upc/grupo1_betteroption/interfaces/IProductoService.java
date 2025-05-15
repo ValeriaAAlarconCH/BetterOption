@@ -18,10 +18,10 @@ public interface IProductoService {
 
     List<ProductoDto> filtrarPorPrecio(Double min, Double max);
 
-    List<ProductoDto> obtenerPromocionesActivas();
-
-    List<ProductoDto> obtenerWishlistUsuario(Long idUsuario);
-
-    List<ProductoDeseadoDto> obtenerProductosMasDeseados();
+//    List<ProductoDto> obtenerPromocionesActivas();
+//
+//    List<ProductoDto> obtenerWishlistUsuario(Long idUsuario);
+//
+//    List<ProductoDeseadoDto> obtenerProductosMasDeseados();
 
 }

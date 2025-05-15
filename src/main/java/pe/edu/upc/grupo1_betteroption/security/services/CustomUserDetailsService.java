@@ -1,14 +1,14 @@
 package pe.edu.upc.grupo1_betteroption.security.services;
 
 
-import com.upc.products.security.entities.User;
-import com.upc.products.security.repositories.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import pe.edu.upc.grupo1_betteroption.security.entities.User;
+import pe.edu.upc.grupo1_betteroption.security.repositories.UserRepository;
 
 import java.util.Set;
 import java.util.stream.Collectors;

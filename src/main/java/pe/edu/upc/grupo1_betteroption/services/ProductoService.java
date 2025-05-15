@@ -61,20 +61,20 @@ public class ProductoService implements IProductoService {
                 .stream().map(p -> modelMapper.map(p, ProductoDto.class)).collect(Collectors.toList());
     }
 
-    @Override
-    public List<ProductoDto> obtenerPromocionesActivas() {
-        return productorepository.findProductosConPromocionesActivas()
-                .stream().map(p -> modelMapper.map(p, ProductoDto.class)).collect(Collectors.toList());
-    }
-
-    @Override
-    public List<ProductoDto> obtenerWishlistUsuario(Long idUsuario) {
-        return productorepository.findWishlistByUsuario(idUsuario)
-                .stream().map(p -> modelMapper.map(p, ProductoDto.class)).collect(Collectors.toList());
-    }
-
-    @Override
-    public List<ProductoDeseadoDto> obtenerProductosMasDeseados() {
-        return productorepository.findProductosMasDeseados();
-    }
+//    @Override
+//    public List<ProductoDto> obtenerPromocionesActivas() {
+//        return productorepository.findProductosConPromocionesActivas()
+//                .stream().map(p -> modelMapper.map(p, ProductoDto.class)).collect(Collectors.toList());
+//    }
+//
+//    @Override
+//    public List<ProductoDto> obtenerWishlistUsuario(Long idUsuario) {
+//        return productorepository.findWishlistByUsuario(idUsuario)
+//                .stream().map(p -> modelMapper.map(p, ProductoDto.class)).collect(Collectors.toList());
+//    }
+//
+//    @Override
+//    public List<ProductoDeseadoDto> obtenerProductosMasDeseados() {
+//        return productorepository.findProductosMasDeseados();
+//    }
 }

@@ -21,29 +21,29 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
     List<Producto> findByPrecioBetween(Double precioMin, Double precioMax);
 
     // Productos con promociones activas (ProductoCatalogo + CatalogoPromociones)
-    @Query("""
-    SELECT p FROM Producto p
-    JOIN ProductoCatalogo pc ON p.id_producto = pc.producto.id_producto
-    JOIN CatalogoPromociones cp ON pc.catalogoPromociones.id_catalogopromociones = cp.id_catalogopromociones
-    WHERE CURRENT_DATE BETWEEN cp.fechaInicio AND cp.fechaFin
-    """)
-    List<Producto> findProductosConPromocionesActivas();
-
-    // Wishlist del usuario (Wishlist)
-    @Query("""
-   SELECT p FROM Producto p
-   JOIN Wishlist w ON p.id_producto = w.producto.id_producto
-   WHERE w.usuario.id_usuario = :idUsuario
-   """)
-    List<Producto> findWishlistByUsuario(@Param("idUsuario") Long idUsuario);
-
-    // Productos más deseados (Wishlist)
-    @Query("""
-    SELECT new pe.edu.upc.grupo1_betteroption.dtos.ProductoDeseadoDto(p.nombreProducto, COUNT(w)) 
-    FROM Wishlist w
-    JOIN w.producto p
-    GROUP BY p.id_producto, p.nombreProducto
-    ORDER BY COUNT(w) DESC
-    """)
-    List<ProductoDeseadoDto> findProductosMasDeseados();
+//    @Query("""
+//    SELECT p FROM Producto p
+//    JOIN ProductoCatalogo pc ON p.id_producto = pc.producto.id_producto
+//    JOIN CatalogoPromociones cp ON pc.catalogoPromociones.id_catalogopromociones = cp.id_catalogopromociones
+//    WHERE CURRENT_DATE BETWEEN cp.fechaInicio AND cp.fechaFin
+//    """)
+//    List<Producto> findProductosConPromocionesActivas();
+//
+//    // Wishlist del usuario (Wishlist)
+//    @Query("""
+//   SELECT p FROM Producto p
+//   JOIN Wishlist w ON p.id_producto = w.producto.id_producto
+//   WHERE w.usuario.id_usuario = :idUsuario
+//   """)
+//    List<Producto> findWishlistByUsuario(@Param("idUsuario") Long idUsuario);
+//
+//    // Productos más deseados (Wishlist)
+//    @Query("""
+//    SELECT new pe.edu.upc.grupo1_betteroption.dtos.ProductoDeseadoDto(p.nombreProducto, COUNT(w))
+//    FROM Wishlist w
+//    JOIN w.producto p
+//    GROUP BY p.id_producto, p.nombreProducto
+//    ORDER BY COUNT(w) DESC
+//    """)
+//    List<ProductoDeseadoDto> findProductosMasDeseados();
 }

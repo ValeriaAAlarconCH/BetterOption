@@ -46,19 +46,19 @@ public class ProductoController {
         return ResponseEntity.ok(productoservice.filtrarPorPrecio(min, max));
     }
 
-    @GetMapping("/PromocionesActivas")
-    public ResponseEntity<List<ProductoDto>> obtenerPromocionesActivas() {
-        return ResponseEntity.ok(productoservice.obtenerPromocionesActivas());
-    }
-
-    @GetMapping("/WishlistUsuario/{idUsuario}")
-    public ResponseEntity<List<ProductoDto>> obtenerWishlistUsuario(@PathVariable Long idUsuario) {
-        return ResponseEntity.ok(productoservice.obtenerWishlistUsuario(idUsuario));
-    }
-
-    @GetMapping("/ProductosDeseados")
-    public ResponseEntity<List<ProductoDeseadoDto>> obtenerProductosMasDeseados() {
-        return ResponseEntity.ok(productoservice.obtenerProductosMasDeseados());
-    }
+//    @GetMapping("/PromocionesActivas")
+//    public ResponseEntity<List<ProductoDto>> obtenerPromocionesActivas() {
+//        return ResponseEntity.ok(productoservice.obtenerPromocionesActivas());
+//    }
+//
+//    @GetMapping("/WishlistUsuario/{idUsuario}")
+//    public ResponseEntity<List<ProductoDto>> obtenerWishlistUsuario(@PathVariable Long idUsuario) {
+//        return ResponseEntity.ok(productoservice.obtenerWishlistUsuario(idUsuario));
+//    }
+//
+//    @GetMapping("/ProductosDeseados")
+//    public ResponseEntity<List<ProductoDeseadoDto>> obtenerProductosMasDeseados() {
+//        return ResponseEntity.ok(productoservice.obtenerProductosMasDeseados());
+//    }
 
 }
