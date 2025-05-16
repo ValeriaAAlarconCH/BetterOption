@@ -24,8 +24,8 @@ public class ProductoDto implements Serializable {
     private String descripcion;
     private Integer precio;
     private Integer stock;
-    private TextAttribute imagen;
-    private Microempresa microempresa;
-    private Categoria categoria;
+    private String imagen;
+    private Long idMicroempresa;
+    private Long idCategoria;
 
 }

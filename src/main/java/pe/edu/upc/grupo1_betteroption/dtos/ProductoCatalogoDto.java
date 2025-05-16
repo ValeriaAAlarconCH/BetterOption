@@ -15,8 +15,8 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class ProductoCatalogoDto implements Serializable {
     private Long id_productocatalogo;
-    private Integer descuento_porcentaje;
-    private CatalogoPromociones catalogoPromociones;
-    private Producto producto;
+    private Integer descuentoPorcentaje;
+    private Long idCatalogoPromociones;
+    private Long idProducto;
 }
 

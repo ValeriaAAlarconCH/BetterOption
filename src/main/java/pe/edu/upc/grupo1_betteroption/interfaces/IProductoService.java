@@ -14,14 +14,9 @@ public interface IProductoService {
 
     List<ProductoDto> buscarPorNombre(String nombre);
 
-    List<ProductoDto> filtrarPorCategoria(Long idCategoria);
+//    List<ProductoDto> filtrarPorCategoria(Long idCategoria);
 
     List<ProductoDto> filtrarPorPrecio(Double min, Double max);
 
-    List<ProductoDto> obtenerPromocionesActivas();
-
-    List<ProductoDto> obtenerWishlistUsuario(Long idUsuario);
-
-    List<ProductoDeseadoDto> obtenerProductosMasDeseados();
 
 }

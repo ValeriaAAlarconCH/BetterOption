@@ -36,29 +36,29 @@ public class ProductoController {
         return ResponseEntity.ok(productoservice.buscarPorNombre(nombre));
     }
 
-    @GetMapping("/FiltroCategoria/{idCategoria}")
-    public ResponseEntity<List<ProductoDto>> filtrarPorCategoria(@PathVariable Long idCategoria) {
-        return ResponseEntity.ok(productoservice.filtrarPorCategoria(idCategoria));
-    }
+//    @GetMapping("/FiltroCategoria/{idCategoria}")
+//    public ResponseEntity<List<ProductoDto>> filtrarPorCategoria(@PathVariable Long idCategoria) {
+//        return ResponseEntity.ok(productoservice.filtrarPorCategoria(idCategoria));
+//    }
 
     @GetMapping("/FiltroPrecio")
     public ResponseEntity<List<ProductoDto>> filtrarPorPrecio(@RequestParam Double min, @RequestParam Double max) {
         return ResponseEntity.ok(productoservice.filtrarPorPrecio(min, max));
     }
 
-    @GetMapping("/PromocionesActivas")
-    public ResponseEntity<List<ProductoDto>> obtenerPromocionesActivas() {
-        return ResponseEntity.ok(productoservice.obtenerPromocionesActivas());
-    }
-
-    @GetMapping("/WishlistUsuario/{idUsuario}")
-    public ResponseEntity<List<ProductoDto>> obtenerWishlistUsuario(@PathVariable Long idUsuario) {
-        return ResponseEntity.ok(productoservice.obtenerWishlistUsuario(idUsuario));
-    }
-
-    @GetMapping("/ProductosDeseados")
-    public ResponseEntity<List<ProductoDeseadoDto>> obtenerProductosMasDeseados() {
-        return ResponseEntity.ok(productoservice.obtenerProductosMasDeseados());
-    }
+//    @GetMapping("/PromocionesActivas")
+//    public ResponseEntity<List<ProductoDto>> obtenerPromocionesActivas() {
+//        return ResponseEntity.ok(productoservice.obtenerPromocionesActivas());
+//    }
+//
+//    @GetMapping("/WishlistUsuario/{idUsuario}")
+//    public ResponseEntity<List<ProductoDto>> obtenerWishlistUsuario(@PathVariable Long idUsuario) {
+//        return ResponseEntity.ok(productoservice.obtenerWishlistUsuario(idUsuario));
+//    }
+//
+//    @GetMapping("/ProductosDeseados")
+//    public ResponseEntity<List<ProductoDeseadoDto>> obtenerProductosMasDeseados() {
+//        return ResponseEntity.ok(productoservice.obtenerProductosMasDeseados());
+//    }
 
 }

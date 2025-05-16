@@ -3,9 +3,6 @@ package pe.edu.upc.grupo1_betteroption.entities;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.w3c.dom.Text;
-
-import java.awt.font.TextAttribute;
 
 @Getter
 @Setter
@@ -15,7 +12,7 @@ public class Producto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_producto", nullable = false)
-    private Long id_producto;
+    private Long idProducto;
 
     @Column(name = "nombre_producto", nullable = false, length = 100)
     private String nombreProducto;
@@ -30,7 +27,7 @@ public class Producto {
     private Integer stock;
 
     @Column(name = "imagen", nullable = false, length = Integer.MAX_VALUE)
-    private TextAttribute imagen;
+    private String imagen;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_microempresa", nullable = false)

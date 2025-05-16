@@ -5,8 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pe.edu.upc.grupo1_betteroption.dtos.MicroempresaDto;
 import pe.edu.upc.grupo1_betteroption.entities.Microempresa;
+import pe.edu.upc.grupo1_betteroption.entities.Usuario;
 import pe.edu.upc.grupo1_betteroption.interfaces.IMicroempresaService;
 import pe.edu.upc.grupo1_betteroption.repositories.MicroempresaRepository;
+import pe.edu.upc.grupo1_betteroption.repositories.UsuarioRepository;
 
 import java.util.List;
 
@@ -16,11 +18,17 @@ public class MicroempresaService implements IMicroempresaService {
     private MicroempresaRepository microempresarepository;
 
     @Autowired
+    private UsuarioRepository usuariorepository;
+
+    @Autowired
     private ModelMapper modelMapper;
 
     @Override
-    public MicroempresaDto grabarMicroempresa(MicroempresaDto microempresadto) {
-        Microempresa microempresa = modelMapper.map(microempresadto, Microempresa.class);
+    public MicroempresaDto grabarMicroempresa(MicroempresaDto dto) {
+        Microempresa microempresa = modelMapper.map(dto, Microempresa.class);
+        Usuario usuario = usuariorepository.findById(dto.getIdUsuario())
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        microempresa.setUsuario(usuario);
         Microempresa guardar = microempresarepository.save(microempresa);
         return modelMapper.map(guardar, MicroempresaDto.class);
     }

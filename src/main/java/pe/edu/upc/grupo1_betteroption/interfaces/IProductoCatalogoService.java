@@ -1,6 +1,7 @@
 package pe.edu.upc.grupo1_betteroption.interfaces;
 
 import pe.edu.upc.grupo1_betteroption.dtos.ProductoCatalogoDto;
+import pe.edu.upc.grupo1_betteroption.dtos.ProductoDto;
 
 import java.util.List;
 
@@ -10,4 +11,7 @@ public interface IProductoCatalogoService {
     public List<ProductoCatalogoDto> getProductosCatalogos();
 
     void eliminar(Long id);
+
+    List<ProductoDto> obtenerProductosConPromocionesActivas();
+
 }
