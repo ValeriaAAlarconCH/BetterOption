@@ -7,6 +7,7 @@ import pe.edu.upc.grupo1_betteroption.dtos.CatalogoPromocionesDto;
 import pe.edu.upc.grupo1_betteroption.entities.CatalogoPromociones;
 import pe.edu.upc.grupo1_betteroption.interfaces.ICatalogoPromocionesService;
 import pe.edu.upc.grupo1_betteroption.repositories.CatalogoPromocionesRepository;
+import pe.edu.upc.grupo1_betteroption.repositories.MicroempresaRepository;
 
 import java.util.List;
 
@@ -16,12 +17,21 @@ public class CatalogoPromocionesService implements ICatalogoPromocionesService {
     private CatalogoPromocionesRepository catalogopromocionesrepository;
 
     @Autowired
+    private MicroempresaRepository microempresarepository;
+
+    @Autowired
     private ModelMapper modelMapper;
 
     @Override
-    public CatalogoPromocionesDto grabarCatalogoPromociones(CatalogoPromocionesDto catalogopromocionesdto) {
-        CatalogoPromociones catalogopromociones = modelMapper.map(catalogopromocionesdto, CatalogoPromociones.class);
-        CatalogoPromociones guardar = catalogopromocionesrepository.save(catalogopromociones);
+    public CatalogoPromocionesDto grabarCatalogoPromociones(CatalogoPromocionesDto dto) {
+        CatalogoPromociones catalogo = modelMapper.map(dto, CatalogoPromociones.class);
+
+        catalogo.setMicroempresa(
+                microempresarepository.findById(dto.getIdMicroempresa())
+                        .orElseThrow(() -> new RuntimeException("Microempresa no encontrada"))
+        );
+
+        CatalogoPromociones guardar = catalogopromocionesrepository.save(catalogo);
         return modelMapper.map(guardar, CatalogoPromocionesDto.class);
     }
 

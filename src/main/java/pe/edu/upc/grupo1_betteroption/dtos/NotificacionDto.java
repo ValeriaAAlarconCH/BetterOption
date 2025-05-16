@@ -17,7 +17,7 @@ public class NotificacionDto implements Serializable {
     private Long id_notificacion;
     private String mensaje;
     private String tipo;
-    private LocalDate fecha_envio;
-    private Integer leido;
-    private Usuario usuario;
+    private LocalDate fechaEnvio;
+    private Boolean leido;
+    private Long idUsuario;
 }

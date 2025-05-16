@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.grupo1_betteroption.dtos.ProductoCatalogoDto;
+import pe.edu.upc.grupo1_betteroption.dtos.ProductoDto;
 import pe.edu.upc.grupo1_betteroption.services.ProductoCatalogoService;
 
 import java.util.List;
@@ -29,4 +30,10 @@ public class ProductoCatalogoController {
         productocatalogoservice.eliminar(id);
         return ResponseEntity.ok("ProductoCatalogo Eliminado correctamente");
     }
+
+    @GetMapping("/promocionesactivas")
+    public ResponseEntity<List<ProductoDto>> promocionesActivas() {
+        return ResponseEntity.ok(productocatalogoservice.obtenerProductosConPromocionesActivas());
+    }
+
 }

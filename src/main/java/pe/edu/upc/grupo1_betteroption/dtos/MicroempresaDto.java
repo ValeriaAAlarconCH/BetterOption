@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import pe.edu.upc.grupo1_betteroption.entities.Usuario;
 
 import java.io.Serializable;
 
@@ -20,5 +19,5 @@ public class MicroempresaDto implements Serializable {
     private Integer telefono;
     private String email;
     private String descripcion;
-    private Usuario usuario;
+    private Long idUsuario;
 }

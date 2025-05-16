@@ -3,10 +3,11 @@ package pe.edu.upc.grupo1_betteroption.services;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pe.edu.upc.grupo1_betteroption.dtos.ProductoDeseadoDto;
 import pe.edu.upc.grupo1_betteroption.dtos.ProductoDto;
 import pe.edu.upc.grupo1_betteroption.entities.Producto;
 import pe.edu.upc.grupo1_betteroption.interfaces.IProductoService;
+import pe.edu.upc.grupo1_betteroption.repositories.CategoriaRepository;
+import pe.edu.upc.grupo1_betteroption.repositories.MicroempresaRepository;
 import pe.edu.upc.grupo1_betteroption.repositories.ProductoRepository;
 
 import java.util.List;
@@ -18,11 +19,28 @@ public class ProductoService implements IProductoService {
     private ProductoRepository productorepository;
 
     @Autowired
+    private MicroempresaRepository microempresarepository;
+
+    @Autowired
+    private CategoriaRepository categoriarepository;
+
+    @Autowired
     private ModelMapper modelMapper;
 
     @Override
-    public ProductoDto grabarProducto(ProductoDto productodto) {
-        Producto producto = modelMapper.map(productodto, Producto.class);
+    public ProductoDto grabarProducto(ProductoDto dto) {
+        Producto producto = modelMapper.map(dto, Producto.class);
+
+        producto.setMicroempresa(
+                microempresarepository.findById(dto.getIdMicroempresa())
+                        .orElseThrow(() -> new RuntimeException("Microempresa no encontrada"))
+        );
+
+        producto.setCategoria(
+                categoriarepository.findById(dto.getIdCategoria())
+                        .orElseThrow(() -> new RuntimeException("Categoría no encontrada"))
+        );
+
         Producto guardar = productorepository.save(producto);
         return modelMapper.map(guardar, ProductoDto.class);
     }
@@ -49,11 +67,6 @@ public class ProductoService implements IProductoService {
                 .stream().map(p -> modelMapper.map(p, ProductoDto.class)).collect(Collectors.toList());
     }
 
-//    @Override
-//    public List<ProductoDto> filtrarPorCategoria(Long idCategoria) {
-//        return productorepository.findByCategoria_Id_categoria(idCategoria)
-//                .stream().map(p -> modelMapper.map(p, ProductoDto.class)).collect(Collectors.toList());
-//    }
 
     @Override
     public List<ProductoDto> filtrarPorPrecio(Double min, Double max) {
@@ -61,20 +74,5 @@ public class ProductoService implements IProductoService {
                 .stream().map(p -> modelMapper.map(p, ProductoDto.class)).collect(Collectors.toList());
     }
 
-//    @Override
-//    public List<ProductoDto> obtenerPromocionesActivas() {
-//        return productorepository.findProductosConPromocionesActivas()
-//                .stream().map(p -> modelMapper.map(p, ProductoDto.class)).collect(Collectors.toList());
-//    }
-//
-//    @Override
-//    public List<ProductoDto> obtenerWishlistUsuario(Long idUsuario) {
-//        return productorepository.findWishlistByUsuario(idUsuario)
-//                .stream().map(p -> modelMapper.map(p, ProductoDto.class)).collect(Collectors.toList());
-//    }
-//
-//    @Override
-//    public List<ProductoDeseadoDto> obtenerProductosMasDeseados() {
-//        return productorepository.findProductosMasDeseados();
-//    }
+
 }
