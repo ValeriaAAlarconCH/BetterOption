@@ -3,7 +3,6 @@ package pe.edu.upc.grupo1_betteroption.services;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pe.edu.upc.grupo1_betteroption.dtos.ProductoDeseadoDto;
 import pe.edu.upc.grupo1_betteroption.dtos.ProductoDto;
 import pe.edu.upc.grupo1_betteroption.entities.Producto;
 import pe.edu.upc.grupo1_betteroption.interfaces.IProductoService;
@@ -68,11 +67,6 @@ public class ProductoService implements IProductoService {
                 .stream().map(p -> modelMapper.map(p, ProductoDto.class)).collect(Collectors.toList());
     }
 
-//    @Override
-//    public List<ProductoDto> filtrarPorCategoria(Long idCategoria) {
-//        return productorepository.findByCategoria_Id_categoria(idCategoria)
-//                .stream().map(p -> modelMapper.map(p, ProductoDto.class)).collect(Collectors.toList());
-//    }
 
     @Override
     public List<ProductoDto> filtrarPorPrecio(Double min, Double max) {

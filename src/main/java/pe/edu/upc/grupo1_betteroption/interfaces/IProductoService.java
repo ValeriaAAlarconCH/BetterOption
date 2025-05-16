@@ -1,6 +1,5 @@
 package pe.edu.upc.grupo1_betteroption.interfaces;
 
-import pe.edu.upc.grupo1_betteroption.dtos.ProductoDeseadoDto;
 import pe.edu.upc.grupo1_betteroption.dtos.ProductoDto;
 
 import java.util.List;
@@ -13,8 +12,6 @@ public interface IProductoService {
     void eliminar(Long id);
 
     List<ProductoDto> buscarPorNombre(String nombre);
-
-//    List<ProductoDto> filtrarPorCategoria(Long idCategoria);
 
     List<ProductoDto> filtrarPorPrecio(Double min, Double max);
 
