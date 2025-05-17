@@ -2,6 +2,7 @@ package pe.edu.upc.grupo1_betteroption.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.grupo1_betteroption.dtos.UsuarioDto;
 import pe.edu.upc.grupo1_betteroption.interfaces.IUsuarioService;
