@@ -26,7 +26,6 @@ public class UserController {
         user.setPassword(bcryptPassword);
         userService.save(user);
     }
-
     @PostMapping("/save/{user_id}/{rol_id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Integer> saveUseRol(@PathVariable("user_id") Long user_id,
