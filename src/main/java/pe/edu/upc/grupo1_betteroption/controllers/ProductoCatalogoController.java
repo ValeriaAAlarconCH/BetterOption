@@ -17,22 +17,26 @@ public class ProductoCatalogoController {
     private ProductoCatalogoService productocatalogoservice;
 
     @PostMapping("/registrar")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MICROEMPRESARIO')")
     public ResponseEntity<ProductoCatalogoDto> productocatalogo(@RequestBody ProductoCatalogoDto productocatalogodto) {
         return ResponseEntity.ok(productocatalogoservice.grabarProductoCatalogo(productocatalogodto));
     }
 
     @GetMapping("/listar")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'MICROEMPRESARIO')")
     public ResponseEntity<List<ProductoCatalogoDto>> getProdctoCatalogos() {
         return ResponseEntity.ok(productocatalogoservice.getProductosCatalogos());
     }
 
     @DeleteMapping("/eliminar/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MICROEMPRESARIO')")
     public ResponseEntity<String> eliminar(@PathVariable("id") Long id) {
         productocatalogoservice.eliminar(id);
         return ResponseEntity.ok("ProductoCatalogo Eliminado correctamente");
     }
 
     @GetMapping("/promocionesactivas")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'MICROEMPRESARIO')")
     public ResponseEntity<List<ProductoDto>> promocionesActivas() {
         return ResponseEntity.ok(productocatalogoservice.obtenerProductosConPromocionesActivas());
     }

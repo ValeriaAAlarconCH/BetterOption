@@ -1,7 +1,11 @@
 package pe.edu.upc.grupo1_betteroption.security.entities;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "roles")
 @Data

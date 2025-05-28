@@ -19,5 +19,5 @@ public class CatalogoPromocionesDto implements Serializable {
     private String descripcion;
     private LocalDate fechaInicio;
     private LocalDate fechaFin;
-    private Long idMicroempresa;
+    private MicroempresaDto idMicroempresa;
 }

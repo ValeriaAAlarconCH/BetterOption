@@ -28,9 +28,7 @@ public class CategoriaService implements ICategoriaService {
 
     @Override
     public List<CategoriaDto> getCategorias() {
-        return categoriarepository.findAll().stream()
-                .map(categoria -> modelMapper.map(categoria, CategoriaDto.class))
-                .toList();
+        return modelMapper.map(categoriarepository.findAll(), List.class);
     }
 
     @Override

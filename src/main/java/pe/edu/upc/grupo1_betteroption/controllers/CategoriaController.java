@@ -17,16 +17,19 @@ public class CategoriaController {
     private CategoriaService categoriaservice;
 
     @PostMapping("/registrar")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<CategoriaDto> categoria(@RequestBody CategoriaDto categoriadto) {
         return ResponseEntity.ok(categoriaservice.grabarCategoria(categoriadto));
     }
 
     @GetMapping("/listar")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'MICROEMPRESARIO')")
     public ResponseEntity<List<CategoriaDto>> getCategorias() {
         return ResponseEntity.ok(categoriaservice.getCategorias());
     }
 
     @DeleteMapping("/eliminar/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> eliminar(@PathVariable("id") Long id) {
         categoriaservice.eliminar(id);
         return ResponseEntity.ok("Categoria Eliminada correctamente");

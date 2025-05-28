@@ -19,7 +19,7 @@ public class TestController {
     }
 
     @GetMapping("/user")
-    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'MICROEMPRESARIO')")
     public String userEndpoint() {
         return "This is the user endpoint, accessible to users with USER or ADMIN role.";
     }
