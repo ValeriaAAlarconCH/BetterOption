@@ -10,4 +10,6 @@ public interface IUsuarioService {
     public List<UsuarioDto> getUsuarios();
 
     void eliminar(Long id);
+
+    //UsuarioDto actualizar(Long id, UsuarioDto usuariodto);
 }

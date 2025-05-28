@@ -26,18 +26,14 @@ public class MicroempresaService implements IMicroempresaService {
     @Override
     public MicroempresaDto grabarMicroempresa(MicroempresaDto dto) {
         Microempresa microempresa = modelMapper.map(dto, Microempresa.class);
-        Usuario usuario = usuariorepository.findById(dto.getIdUsuario())
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        microempresa.setUsuario(usuario);
         Microempresa guardar = microempresarepository.save(microempresa);
         return modelMapper.map(guardar, MicroempresaDto.class);
+
     }
 
     @Override
     public List<MicroempresaDto> getMicroempresas() {
-        return microempresarepository.findAll().stream()
-                .map(microempresa -> modelMapper.map(microempresa, MicroempresaDto.class))
-                .toList();
+        return modelMapper.map(microempresarepository.findAll(), List.class);
     }
 
     @Override

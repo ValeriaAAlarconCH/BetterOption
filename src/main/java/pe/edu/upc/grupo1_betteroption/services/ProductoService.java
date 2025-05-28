@@ -6,8 +6,6 @@ import org.springframework.stereotype.Service;
 import pe.edu.upc.grupo1_betteroption.dtos.ProductoDto;
 import pe.edu.upc.grupo1_betteroption.entities.Producto;
 import pe.edu.upc.grupo1_betteroption.interfaces.IProductoService;
-import pe.edu.upc.grupo1_betteroption.repositories.CategoriaRepository;
-import pe.edu.upc.grupo1_betteroption.repositories.MicroempresaRepository;
 import pe.edu.upc.grupo1_betteroption.repositories.ProductoRepository;
 
 import java.util.List;
@@ -19,37 +17,18 @@ public class ProductoService implements IProductoService {
     private ProductoRepository productorepository;
 
     @Autowired
-    private MicroempresaRepository microempresarepository;
-
-    @Autowired
-    private CategoriaRepository categoriarepository;
-
-    @Autowired
     private ModelMapper modelMapper;
 
     @Override
-    public ProductoDto grabarProducto(ProductoDto dto) {
-        Producto producto = modelMapper.map(dto, Producto.class);
-
-        producto.setMicroempresa(
-                microempresarepository.findById(dto.getIdMicroempresa())
-                        .orElseThrow(() -> new RuntimeException("Microempresa no encontrada"))
-        );
-
-        producto.setCategoria(
-                categoriarepository.findById(dto.getIdCategoria())
-                        .orElseThrow(() -> new RuntimeException("Categoría no encontrada"))
-        );
-
+    public ProductoDto grabarProducto(ProductoDto productodto) {
+        Producto producto = modelMapper.map(productodto, Producto.class);
         Producto guardar = productorepository.save(producto);
         return modelMapper.map(guardar, ProductoDto.class);
     }
 
     @Override
     public List<ProductoDto> getProductos() {
-        return productorepository.findAll().stream()
-                .map(producto -> modelMapper.map(producto, ProductoDto.class))
-                .toList();
+        return modelMapper.map(productorepository.findAll(), List.class);
     }
 
     @Override
