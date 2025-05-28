@@ -7,7 +7,6 @@ import pe.edu.upc.grupo1_betteroption.dtos.NotificacionDto;
 import pe.edu.upc.grupo1_betteroption.entities.Notificacion;
 import pe.edu.upc.grupo1_betteroption.interfaces.INotificacionService;
 import pe.edu.upc.grupo1_betteroption.repositories.NotificacionRepository;
-import pe.edu.upc.grupo1_betteroption.repositories.UsuarioRepository;
 
 import java.util.List;
 
@@ -17,30 +16,19 @@ public class NotificacionService implements INotificacionService {
     private NotificacionRepository notificacionrepository;
 
     @Autowired
-    private UsuarioRepository usuariorepository;
-
-    @Autowired
     private ModelMapper modelMapper;
 
 
     @Override
     public NotificacionDto grabarNotificacion(NotificacionDto dto) {
         Notificacion notificacion = modelMapper.map(dto, Notificacion.class);
-
-        notificacion.setUsuario(
-                usuariorepository.findById(dto.getIdUsuario())
-                        .orElseThrow(() -> new RuntimeException("Usuario no encontrado"))
-        );
-
         Notificacion guardar = notificacionrepository.save(notificacion);
         return modelMapper.map(guardar, NotificacionDto.class);
     }
 
     @Override
     public List<NotificacionDto> getNotificaciones() {
-        return notificacionrepository.findAll().stream()
-                .map(notificacion -> modelMapper.map(notificacion, NotificacionDto.class))
-                .toList();
+        return modelMapper.map(notificacionrepository.findAll(), List.class);
     }
 
     @Override

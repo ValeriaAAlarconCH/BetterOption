@@ -30,17 +30,6 @@ public class ProductoCatalogoService implements IProductoCatalogoService {
     @Override
     public ProductoCatalogoDto grabarProductoCatalogo(ProductoCatalogoDto dto) {
         ProductoCatalogo productocatalogo = modelMapper.map(dto, ProductoCatalogo.class);
-
-        productocatalogo.setCatalogoPromociones(
-                catalogoPromocionesrepository.findById(dto.getIdCatalogoPromociones())
-                        .orElseThrow(() -> new RuntimeException("Catálogo no encontrado"))
-        );
-
-        productocatalogo.setProducto(
-                productorepository.findById(dto.getIdProducto())
-                        .orElseThrow(() -> new RuntimeException("Producto no encontrado"))
-        );
-
         ProductoCatalogo guardar = productocatalogorepository.save(productocatalogo);
         return modelMapper.map(guardar, ProductoCatalogoDto.class);
     }

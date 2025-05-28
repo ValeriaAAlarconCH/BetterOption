@@ -34,3 +34,4 @@ public class UserController {
         //return new ResponseEntity<Integer>(uService.insertUserRol2(user_id, rol_id),HttpStatus.OK);
     }
 }
+

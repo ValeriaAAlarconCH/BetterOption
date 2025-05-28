@@ -1,11 +1,15 @@
 package pe.edu.upc.grupo1_betteroption.security.entities;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "users")
 @Data
@@ -29,3 +33,4 @@ public class User {
     )
     private Set<Role> roles = new HashSet<>();
 }
+
