@@ -1,39 +1,29 @@
 package pe.edu.upc.grupo1_betteroption.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
 @Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "Producto")
 public class Producto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_producto", nullable = false)
-    private Long idProducto;
-
-    @Column(name = "nombre_producto", nullable = false, length = 100)
+    private Long id_Producto;
     private String nombreProducto;
-
-    @Column(name = "descripcion", nullable = false, length = 100)
     private String descripcion;
-
-    @Column(name = "precio", nullable = false)
     private Double precio;
-
-    @Column(name = "stock", nullable = false)
     private Integer stock;
-
-    @Column(name = "imagen", nullable = false, length = Integer.MAX_VALUE)
     private String imagen;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_microempresa", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "id_microempresa")
     private Microempresa microempresa;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_categoria", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "id_categoria")
     private Categoria categoria;
 }

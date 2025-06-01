@@ -1,22 +1,23 @@
 package pe.edu.upc.grupo1_betteroption.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
 @Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "Categoria")
 public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_categoria", nullable = false)
     private Long id_categoria;
-
-    @Column(name = "nombre_categoria", nullable = false, length = 100)
     private String nombreCategoria;
-
-    @Column(name = "descripcion", nullable = false, length = 100)
     private String descripcion;
 }

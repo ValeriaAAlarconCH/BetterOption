@@ -1,27 +1,25 @@
 package pe.edu.upc.grupo1_betteroption.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
 @Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "ProductoCatalogo")
 public class ProductoCatalogo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_productocatalogo", nullable = false)
     private Long id_productocatalogo;
-
-    @Column(name = "descuento_porcentaje", nullable = false) //revisar
     private Double descuentoPorcentaje;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_catalogopromociones", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "id_catalogopromociones")
     private CatalogoPromociones catalogoPromociones;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_producto", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "id_producto")
     private Producto producto;
 }

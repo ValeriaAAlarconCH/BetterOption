@@ -14,7 +14,7 @@ public interface WishlistRepository extends JpaRepository<Wishlist,Long> {
     @Query("""
 SELECT w.producto
 FROM Wishlist w
-WHERE w.usuario.idUsuario = :idUsuario
+WHERE w.usuario.id_Usuario = :idUsuario
 
 """)
     List<Producto> findProductosEnWishlistPorUsuario(@Param("idUsuario") Long idUsuario);
@@ -25,7 +25,7 @@ WHERE w.usuario.idUsuario = :idUsuario
     @Query("""
 SELECT new pe.edu.upc.grupo1_betteroption.dtos.ProductoDeseadoDto(w.producto.nombreProducto, COUNT(w))
 FROM Wishlist w
-GROUP BY w.producto.idProducto, w.producto.nombreProducto
+GROUP BY w.producto.id_Producto, w.producto.nombreProducto
 ORDER BY COUNT(w) DESC
 """)
     List<ProductoDeseadoDto> findProductosMasDeseados();
