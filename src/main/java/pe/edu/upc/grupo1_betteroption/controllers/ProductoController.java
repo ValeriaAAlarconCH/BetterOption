@@ -35,7 +35,7 @@ public class ProductoController {
         return ResponseEntity.ok("Producto eliminado correctamente");
     }
 
-    @GetMapping("/BuscarNombre")
+    @GetMapping("/buscarnombre")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'MICROEMPRESARIO')")
     public ResponseEntity<List<ProductoDto>> buscarPorNombre(@RequestParam String nombre) {
         return ResponseEntity.ok(productoservice.buscarPorNombre(nombre));
@@ -47,28 +47,11 @@ public class ProductoController {
 //        return ResponseEntity.ok(productoservice.filtrarPorCategoria(idCategoria));
 //    }
 
-    @GetMapping("/FiltroPrecio")
+    @GetMapping("/filtroprecio")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'MICROEMPRESARIO')")
     public ResponseEntity<List<ProductoDto>> filtrarPorPrecio(@RequestParam Double min, @RequestParam Double max) {
         return ResponseEntity.ok(productoservice.filtrarPorPrecio(min, max));
     }
 
-//    @GetMapping("/PromocionesActivas")
-//    @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'MICROEMPRESARIO')")
-//    public ResponseEntity<List<ProductoDto>> obtenerPromocionesActivas() {
-//        return ResponseEntity.ok(productoservice.obtenerPromocionesActivas());
-//    }
-//
-//    @GetMapping("/WishlistUsuario/{idUsuario}")
-//    @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'MICROEMPRESARIO')")
-//    public ResponseEntity<List<ProductoDto>> obtenerWishlistUsuario(@PathVariable Long idUsuario) {
-//        return ResponseEntity.ok(productoservice.obtenerWishlistUsuario(idUsuario));
-//    }
-//
-//    @GetMapping("/ProductosDeseados")
-//    @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'MICROEMPRESARIO')")
-//    public ResponseEntity<List<ProductoDeseadoDto>> obtenerProductosMasDeseados() {
-//        return ResponseEntity.ok(productoservice.obtenerProductosMasDeseados());
-//    }
 
 }

@@ -36,13 +36,13 @@ public class WishlistController {
         return ResponseEntity.ok("Wishlist eliminado correctamente");
     }
 
-    @GetMapping("/usuario/{idUsuario}")
+    @GetMapping("/wishlistusuario/{idUsuario}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public ResponseEntity<List<ProductoDto>> wishlistUsuario(@PathVariable Long idUsuario) {
         return ResponseEntity.ok(wishlistservice.obtenerWishlistPorUsuario(idUsuario));
     }
 
-    @GetMapping("/productos-mas-deseados")
+    @GetMapping("/productosdeseados")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public ResponseEntity<List<ProductoDeseadoDto>> productosMasDeseados() {
         return ResponseEntity.ok(wishlistservice.obtenerProductosMasDeseados());
