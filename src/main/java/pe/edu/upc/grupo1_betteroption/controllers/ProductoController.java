@@ -35,9 +35,9 @@ public class ProductoController {
         return ResponseEntity.ok("Producto eliminado correctamente");
     }
 
-    @GetMapping("/buscarnombre")
+    @GetMapping("/buscarnombre/{nombre}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'MICROEMPRESARIO')")
-    public ResponseEntity<List<ProductoDto>> buscarPorNombre(@RequestParam String nombre) {
+    public ResponseEntity<List<ProductoDto>> buscarPorNombre(@PathVariable("nombre") String nombre) {
         return ResponseEntity.ok(productoservice.buscarPorNombre(nombre));
     }
 
@@ -47,9 +47,9 @@ public class ProductoController {
 //        return ResponseEntity.ok(productoservice.filtrarPorCategoria(idCategoria));
 //    }
 
-    @GetMapping("/filtroprecio")
+    @GetMapping("/filtroprecio/{min}/{max}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'MICROEMPRESARIO')")
-    public ResponseEntity<List<ProductoDto>> filtrarPorPrecio(@RequestParam Double min, @RequestParam Double max) {
+    public ResponseEntity<List<ProductoDto>> filtrarPorPrecio(@PathVariable("min") Double min, @PathVariable("max") Double max) {
         return ResponseEntity.ok(productoservice.filtrarPorPrecio(min, max));
     }
 
