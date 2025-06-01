@@ -48,7 +48,4 @@ public class WishlistController {
         return ResponseEntity.ok(wishlistservice.obtenerProductosMasDeseados());
     }
 
-
-
-
 }
