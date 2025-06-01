@@ -24,22 +24,14 @@ public class CatalogoPromocionesService implements ICatalogoPromocionesService {
 
     @Override
     public CatalogoPromocionesDto grabarCatalogoPromociones(CatalogoPromocionesDto dto) {
-        CatalogoPromociones catalogo = modelMapper.map(dto, CatalogoPromociones.class);
-
-        catalogo.setMicroempresa(
-                microempresarepository.findById(dto.getIdMicroempresa())
-                        .orElseThrow(() -> new RuntimeException("Microempresa no encontrada"))
-        );
-
-        CatalogoPromociones guardar = catalogopromocionesrepository.save(catalogo);
+        CatalogoPromociones competencia = modelMapper.map(dto, CatalogoPromociones.class);
+        CatalogoPromociones guardar = catalogopromocionesrepository.save(competencia);
         return modelMapper.map(guardar, CatalogoPromocionesDto.class);
     }
 
     @Override
     public List<CatalogoPromocionesDto> getCatalogosPromociones() {
-        return catalogopromocionesrepository.findAll().stream()
-                .map(catalogopromociones -> modelMapper.map(catalogopromociones, CatalogoPromocionesDto.class))
-                .toList();
+        return modelMapper.map(catalogopromocionesrepository.findAll(), List.class);
     }
 
     @Override

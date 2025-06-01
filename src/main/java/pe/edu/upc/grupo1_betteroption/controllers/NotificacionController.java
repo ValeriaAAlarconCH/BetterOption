@@ -16,16 +16,19 @@ public class NotificacionController {
     private NotificacionService notificacionservice;
 
     @PostMapping("/registrar")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MICROEMPRESARIO')")
     public ResponseEntity<NotificacionDto> notificacion(@RequestBody NotificacionDto notificaciondto) {
         return ResponseEntity.ok(notificacionservice.grabarNotificacion(notificaciondto));
     }
 
     @GetMapping("/listar")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'MICROEMPRESARIO')")
     public ResponseEntity<List<NotificacionDto>> getNotificaciones() {
         return ResponseEntity.ok(notificacionservice.getNotificaciones());
     }
 
     @DeleteMapping("/eliminar/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MICROEMPRESARIO')")
     public ResponseEntity<String> eliminar(@PathVariable("id") Long id) {
         notificacionservice.eliminar(id);
         return ResponseEntity.ok("Notificación Eliminada correctamente");

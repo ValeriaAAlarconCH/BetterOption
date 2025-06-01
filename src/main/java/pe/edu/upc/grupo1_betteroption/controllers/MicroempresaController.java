@@ -16,16 +16,19 @@ public class MicroempresaController {
     private MicroempresaService microempresaservice;
 
     @PostMapping("/registrar")
+    @PreAuthorize("hasAnyRole( 'ADMIN', 'MICROEMPRESARIO')")
     public ResponseEntity<MicroempresaDto> microempresa(@RequestBody MicroempresaDto microempresadto) {
         return ResponseEntity.ok(microempresaservice.grabarMicroempresa(microempresadto));
     }
 
     @GetMapping("/listar")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'MICROEMPRESARIO')")
     public ResponseEntity<List<MicroempresaDto>> getMicroempresas() {
         return ResponseEntity.ok(microempresaservice.getMicroempresas());
     }
 
     @DeleteMapping("/eliminar/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MICROEMPRESARIO')")
     public ResponseEntity<String> eliminar(@PathVariable("id") Long id) {
         microempresaservice.eliminar(id);
         return ResponseEntity.ok("Microempresa eliminada correctamente");

@@ -17,6 +17,6 @@ import java.time.LocalDate;
 public class WishlistDto implements Serializable {
     private Long id_wishlist;
     private LocalDate fechaAgregado;
-    private Long idUsuario;
-    private Long idProducto;
+    private UsuarioDto idUsuario;
+    private ProductoDto idProducto;
 }

@@ -8,8 +8,6 @@ import pe.edu.upc.grupo1_betteroption.dtos.ProductoDto;
 import pe.edu.upc.grupo1_betteroption.dtos.WishlistDto;
 import pe.edu.upc.grupo1_betteroption.entities.Wishlist;
 import pe.edu.upc.grupo1_betteroption.interfaces.IWishlistService;
-import pe.edu.upc.grupo1_betteroption.repositories.ProductoRepository;
-import pe.edu.upc.grupo1_betteroption.repositories.UsuarioRepository;
 import pe.edu.upc.grupo1_betteroption.repositories.WishlistRepository;
 
 import java.util.List;
@@ -20,38 +18,18 @@ public class WishlistService implements IWishlistService {
     private WishlistRepository wishlistrepository;
 
     @Autowired
-    private UsuarioRepository usuariorepository;
-
-    @Autowired
-    private ProductoRepository productorepository;
-
-
-    @Autowired
     private ModelMapper modelMapper;
 
     @Override
-    public WishlistDto grabarWishlist(WishlistDto dto) {
-        Wishlist wishlist = modelMapper.map(dto, Wishlist.class);
-
-        wishlist.setUsuario(
-                usuariorepository.findById(dto.getIdUsuario())
-                        .orElseThrow(() -> new RuntimeException("Usuario no encontrado"))
-        );
-
-        wishlist.setProducto(
-                productorepository.findById(dto.getIdProducto())
-                        .orElseThrow(() -> new RuntimeException("Producto no encontrado"))
-        );
-
+    public WishlistDto grabarWishlist(WishlistDto wishlistdto) {
+        Wishlist wishlist = modelMapper.map(wishlistdto, Wishlist.class);
         Wishlist guardar = wishlistrepository.save(wishlist);
         return modelMapper.map(guardar, WishlistDto.class);
     }
 
     @Override
     public List<WishlistDto> getWishlists() {
-        return wishlistrepository.findAll().stream()
-                .map(wishlist -> modelMapper.map(wishlist, WishlistDto.class))
-                .toList();
+        return modelMapper.map(wishlistrepository.findAll(), List.class);
     }
 
     @Override

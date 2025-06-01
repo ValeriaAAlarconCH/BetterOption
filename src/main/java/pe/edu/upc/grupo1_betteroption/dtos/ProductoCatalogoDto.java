@@ -16,7 +16,7 @@ import java.io.Serializable;
 public class ProductoCatalogoDto implements Serializable {
     private Long id_productocatalogo;
     private Integer descuentoPorcentaje;
-    private Long idCatalogoPromociones;
-    private Long idProducto;
+    private CatalogoPromocionesDto idCatalogoPromociones;
+    private ProductoDto idProducto;
 }
 

@@ -19,5 +19,5 @@ public class MicroempresaDto implements Serializable {
     private Integer telefono;
     private String email;
     private String descripcion;
-    private Long idUsuario;
+    private UsuarioDto idUsuario;
 }
