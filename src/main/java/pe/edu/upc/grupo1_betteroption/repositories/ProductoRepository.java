@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface ProductoRepository extends JpaRepository<Producto, Long> {
     // Buscar por nombre (tabla Producto)
-    List<Producto> findByNombreProductoContainingIgnoreCase(String nombre);
+    List<Producto> findByNombreProducto(String nombre);
 
     // Filtrar por rango de precios (tabla Producto)
     List<Producto> findByPrecioBetween(Double precioMin, Double precioMax);

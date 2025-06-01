@@ -42,7 +42,7 @@ public class ProductoService implements IProductoService {
 
     @Override
     public List<ProductoDto> buscarPorNombre(String nombre) {
-        return productorepository.findByNombreProductoContainingIgnoreCase(nombre)
+        return productorepository.findByNombreProducto(nombre)
                 .stream().map(p -> modelMapper.map(p, ProductoDto.class)).collect(Collectors.toList());
     }
 
