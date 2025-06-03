@@ -12,6 +12,8 @@ public interface IProductoCatalogoService {
 
     void eliminar(Long id);
 
+    public ProductoCatalogoDto actualizar(Long id, ProductoCatalogoDto productocatalogodto);
+
     List<ProductoDto> obtenerProductosConPromocionesActivas();
 
 }

@@ -34,4 +34,11 @@ public class CatalogoPromocionesController {
         return ResponseEntity.ok("CatalogoPromociones Eliminado correctamente");
     }
 
+    @PutMapping("/actualizar/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MICROEMPRESARIO')")
+    public ResponseEntity<CatalogoPromocionesDto> actualizar(@PathVariable("id") Long id, @RequestBody CatalogoPromocionesDto catalogopromocionesdto) {
+        CatalogoPromocionesDto actualizar = catalogopromocionesservice.actualizar(id, catalogopromocionesdto);
+        return ResponseEntity.ok(actualizar);
+    }
+
 }

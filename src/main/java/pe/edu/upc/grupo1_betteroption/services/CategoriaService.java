@@ -39,4 +39,16 @@ public class CategoriaService implements ICategoriaService {
             throw new RuntimeException("No se encontró la categoria con ID: " + id);
         }
     }
+
+    @Override
+    public CategoriaDto actualizar(Long id, CategoriaDto categoriadto) {
+        Categoria categoriaExistente = categoriarepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("No se encontró el usuario con ID: " + id));
+
+        categoriaExistente.setNombreCategoria(categoriadto.getNombreCategoria());
+        categoriaExistente.setDescripcion(categoriadto.getDescripcion());
+
+        Categoria actualizar = categoriarepository.save(categoriaExistente);
+        return modelMapper.map(actualizar, CategoriaDto.class);
+    }
 }

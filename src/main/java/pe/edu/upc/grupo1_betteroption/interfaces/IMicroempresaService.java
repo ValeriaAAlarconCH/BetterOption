@@ -10,4 +10,6 @@ public interface IMicroempresaService {
     public List<MicroempresaDto> getMicroempresas();
 
     void eliminar(Long id);
+
+    public MicroempresaDto actualizar(Long id, MicroempresaDto microempresadto);
 }

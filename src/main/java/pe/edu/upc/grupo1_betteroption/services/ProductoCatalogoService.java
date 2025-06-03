@@ -51,6 +51,22 @@ public class ProductoCatalogoService implements IProductoCatalogoService {
     }
 
     @Override
+    public ProductoCatalogoDto actualizar(Long id, ProductoCatalogoDto productocatalogodto) {
+        ProductoCatalogo catalogoExistente = productocatalogorepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("No se encontro con id: " + id));
+
+        catalogoExistente.setDescuentoPorcentaje(Double.valueOf(productocatalogodto.getDescuentoPorcentaje()));
+
+        catalogoExistente.setCatalogoPromociones(catalogoPromocionesrepository.findById(id).get());
+
+        catalogoExistente.setProducto(productorepository.findById(id).get());
+
+        ProductoCatalogo actualizado = productocatalogorepository.save(catalogoExistente);
+        return modelMapper.map(actualizado, ProductoCatalogoDto.class);
+
+    }
+
+    @Override
     public List<ProductoDto> obtenerProductosConPromocionesActivas() {
         return productocatalogorepository.findProductosConPromocionesActivas()
                 .stream()

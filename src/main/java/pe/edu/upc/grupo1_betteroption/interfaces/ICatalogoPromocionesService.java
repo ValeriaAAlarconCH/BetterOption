@@ -10,4 +10,6 @@ public interface ICatalogoPromocionesService {
     public List<CatalogoPromocionesDto> getCatalogosPromociones();
 
     void eliminar(Long id);
+
+    public CatalogoPromocionesDto actualizar(Long id, CatalogoPromocionesDto promocionesdto);
 }

@@ -35,4 +35,11 @@ public class CategoriaController {
         return ResponseEntity.ok("Categoria Eliminada correctamente");
     }
 
+    @PutMapping("/actualizar/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<CategoriaDto> actualizar(@PathVariable("id") Long id, @RequestBody CategoriaDto categoriadto) {
+        CategoriaDto actualizar = categoriaservice.actualizar(id, categoriadto);
+        return ResponseEntity.ok(actualizar);
+    }
+
 }

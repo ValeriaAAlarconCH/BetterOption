@@ -34,4 +34,11 @@ public class MicroempresaController {
         return ResponseEntity.ok("Microempresa eliminada correctamente");
     }
 
+    @PutMapping("/actualizar/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MICROEMPRESARIO')")
+    public ResponseEntity<MicroempresaDto> actualizar(@PathVariable("id") Long id, @RequestBody MicroempresaDto microempresa) {
+        MicroempresaDto actualizar = microempresaservice.actualizar(id, microempresa);
+        return ResponseEntity.ok(actualizar);
+    }
+
 }

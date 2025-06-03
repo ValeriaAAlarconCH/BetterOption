@@ -11,6 +11,8 @@ public interface IProductoService {
 
     void eliminar(Long id);
 
+    public ProductoDto actualizar(Long id, ProductoDto productodto);
+
     List<ProductoDto> buscarPorNombre(String nombre);
 
     List<ProductoDto> filtrarPorPrecio(Double min, Double max);

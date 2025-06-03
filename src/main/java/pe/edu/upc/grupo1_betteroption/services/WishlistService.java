@@ -8,6 +8,8 @@ import pe.edu.upc.grupo1_betteroption.dtos.ProductoDto;
 import pe.edu.upc.grupo1_betteroption.dtos.WishlistDto;
 import pe.edu.upc.grupo1_betteroption.entities.Wishlist;
 import pe.edu.upc.grupo1_betteroption.interfaces.IWishlistService;
+import pe.edu.upc.grupo1_betteroption.repositories.ProductoRepository;
+import pe.edu.upc.grupo1_betteroption.repositories.UsuarioRepository;
 import pe.edu.upc.grupo1_betteroption.repositories.WishlistRepository;
 
 import java.util.List;
@@ -16,6 +18,12 @@ import java.util.List;
 public class WishlistService implements IWishlistService {
     @Autowired
     private WishlistRepository wishlistrepository;
+
+    @Autowired
+    private UsuarioRepository usuariorepository;
+
+    @Autowired
+    private ProductoRepository productorepository;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -39,6 +47,19 @@ public class WishlistService implements IWishlistService {
         } else {
             throw new RuntimeException("No se encontró el wishlist con ID: " + id);
         }
+    }
+
+    @Override
+    public WishlistDto actualizar(Long id, WishlistDto wishlistdto) {
+        Wishlist wishlistExistente = wishlistrepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("No se encontro la Wishlist con id: " + id));
+
+        wishlistExistente.setUsuario(usuariorepository.findById(id).get());
+
+        wishlistExistente.setProducto(productorepository.findById(id).get());
+
+        Wishlist actualizado = wishlistrepository.save(wishlistExistente);
+        return modelMapper.map(actualizado, WishlistDto.class);
     }
 
     @Override

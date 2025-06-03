@@ -35,6 +35,13 @@ public class ProductoController {
         return ResponseEntity.ok("Producto eliminado correctamente");
     }
 
+    @PutMapping("/actualizar/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MICROEMPRESARIO')")
+    public ResponseEntity<ProductoDto> actualizar(@PathVariable("id") Long id, @RequestBody ProductoDto productodto) {
+        ProductoDto actualizar = productoservice.actualizar(id, productodto);
+        return ResponseEntity.ok(actualizar);
+    }
+
     @GetMapping("/buscarnombre/{nombre}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'MICROEMPRESARIO')")
     public ResponseEntity<List<ProductoDto>> buscarPorNombre(@PathVariable("nombre") String nombre) {

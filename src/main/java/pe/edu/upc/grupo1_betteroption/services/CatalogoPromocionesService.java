@@ -42,4 +42,20 @@ public class CatalogoPromocionesService implements ICatalogoPromocionesService {
             throw new RuntimeException("No se encontró el CatalogoPromociones con ID: " + id);
         }
     }
+
+    @Override
+    public CatalogoPromocionesDto actualizar(Long id, CatalogoPromocionesDto promocionesdto) {
+        CatalogoPromociones promocionExistente = catalogopromocionesrepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("No se encontro el Catalogo con id: " + id));
+
+        promocionExistente.setNombreCatalogo(promocionesdto.getNombreCatalogo());
+        promocionExistente.setDescripcion(promocionesdto.getDescripcion());
+        promocionExistente.setFechaInicio(promocionesdto.getFechaInicio());
+        promocionExistente.setFechaFin(promocionesdto.getFechaFin());
+
+        promocionExistente.setMicroempresa(microempresarepository.findById(id).get());
+
+        CatalogoPromociones actualizado = catalogopromocionesrepository.save(promocionExistente);
+        return modelMapper.map(actualizado, CatalogoPromocionesDto.class);
+    }
 }

@@ -30,10 +30,17 @@ public class WishlistController {
     }
 
     @DeleteMapping("/eliminar/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public ResponseEntity<String> eliminar(@PathVariable("id") Long id) {
         wishlistservice.eliminar(id);
         return ResponseEntity.ok("Wishlist eliminado correctamente");
+    }
+
+    @PutMapping("/actualizar/{id}")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+    public ResponseEntity<WishlistDto> actualizar(@PathVariable("id") Long id, @RequestBody WishlistDto wishlistdto) {
+        WishlistDto actualizar = wishlistservice.actualizar(id, wishlistdto);
+        return ResponseEntity.ok(actualizar);
     }
 
     @GetMapping("/wishlistusuario/{idusuario}")

@@ -37,15 +37,15 @@ INSERT INTO producto (nombre_producto, descripcion, precio, stock, imagen, id_mi
 -- ===============================
 -- CATÁLOGO DE PROMOCIONES
 -- ===============================
-INSERT INTO catalogopromociones (nombre_catalogo, descripcion, fecha_inicio, fecha_fin, id_microempresa) VALUES ('Promos de Temporada', 'Descuentos por campaña otoño-invierno', '2025-04-20', '2025-05-20', 1);
-INSERT INTO catalogopromociones (nombre_catalogo, descripcion, fecha_inicio, fecha_fin, id_microempresa) VALUES ('Lanzamiento Saludable', 'Precios especiales por nuevos productos', '2025-03-15', '2025-04-15', 2);
+INSERT INTO catalogo_promociones (nombre_catalogo, descripcion, fecha_inicio, fecha_fin, id_microempresa) VALUES ('Promos de Temporada', 'Descuentos por campaña otoño-invierno', '2025-04-20', '2025-05-20', 1);
+INSERT INTO catalogo_promociones (nombre_catalogo, descripcion, fecha_inicio, fecha_fin, id_microempresa) VALUES ('Lanzamiento Saludable', 'Precios especiales por nuevos productos', '2025-03-15', '2025-04-15', 2);
 
 -- ===============================
 -- PRODUCTO CATALOGO
 -- ===============================
-INSERT INTO productocatalogo (descuento_porcentaje, id_catalogopromociones, id_producto) VALUES (20.0, 1, 1); -- Polera Urban Fit
-INSERT INTO productocatalogo (descuento_porcentaje, id_catalogopromociones, id_producto) VALUES (15.0, 2, 2); -- Chips de Quinua
-INSERT INTO productocatalogo (descuento_porcentaje, id_catalogopromociones, id_producto) VALUES (25.0, 1, 3); -- Leggins Flex
+INSERT INTO producto_catalogo (descuento_porcentaje, id_catalogopromociones, id_producto) VALUES (20.0, 1, 1); -- Polera Urban Fit
+INSERT INTO producto_catalogo (descuento_porcentaje, id_catalogopromociones, id_producto) VALUES (15.0, 2, 2); -- Chips de Quinua
+INSERT INTO producto_catalogo (descuento_porcentaje, id_catalogopromociones, id_producto) VALUES (25.0, 1, 3); -- Leggins Flex
 
 -- ===============================
 -- WISHLIST

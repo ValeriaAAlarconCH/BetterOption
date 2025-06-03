@@ -41,5 +41,18 @@ public class UsuarioService implements IUsuarioService {
         }
     }
 
+    @Override
+    public UsuarioDto actualizar(Long id, UsuarioDto usuariodto) {
+        Usuario usuarioExistente = usuariorepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("No se encontró el usuario con ID: " + id));
+
+        usuarioExistente.setNombre(usuariodto.getNombre());
+        usuarioExistente.setCorreo(usuariodto.getCorreo());
+        usuarioExistente.setPassword(usuariodto.getPassword());
+
+        Usuario actualizado = usuariorepository.save(usuarioExistente);
+        return modelMapper.map(actualizado, UsuarioDto.class);
+    }
+
 
 }
