@@ -35,4 +35,11 @@ public class UsuarioController {
         return ResponseEntity.ok("Usuario eliminado correctamente");
     }
 
+    @PutMapping("/actualizar/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    public ResponseEntity<UsuarioDto> actualizar(@PathVariable("id") Long id, @RequestBody UsuarioDto usuariodto) {
+        UsuarioDto actualizar = usuarioservice.actualizar(id, usuariodto);
+        return ResponseEntity.ok(actualizar);
+    }
+
 }

@@ -44,4 +44,24 @@ public class MicroempresaService implements IMicroempresaService {
             throw new RuntimeException("No se encontró la Microempresa con ID: " + id);
         }
     }
+
+    @Override
+    public MicroempresaDto actualizar(Long id, MicroempresaDto microempresadto) {
+        Microempresa microempresaExistente = microempresarepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("No se encontro la Microempresa con id: " + id));
+
+        microempresaExistente.setNombreNegocio(microempresadto.getNombreNegocio());
+        microempresaExistente.setRubro(microempresadto.getRubro());
+        microempresaExistente.setDireccion( microempresadto.getDireccion());
+        microempresaExistente.setTelefono(microempresadto.getTelefono());
+        microempresaExistente.setEmail(microempresadto.getEmail());
+        microempresaExistente.setDescripcion(microempresadto.getDescripcion());
+
+        Usuario usuario = usuariorepository.findById(id).get();
+        microempresaExistente.setUsuario(usuario);
+
+        Microempresa actualizado = microempresarepository.save(microempresaExistente);
+        return modelMapper.map(actualizado, MicroempresaDto.class);
+
+    }
 }

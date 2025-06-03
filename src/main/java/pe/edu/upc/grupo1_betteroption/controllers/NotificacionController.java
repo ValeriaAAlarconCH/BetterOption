@@ -34,4 +34,11 @@ public class NotificacionController {
         return ResponseEntity.ok("Notificación Eliminada correctamente");
     }
 
+    @PutMapping("/actualizar/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MICROEMPRESARIO')")
+    public ResponseEntity<NotificacionDto> actualizar(@PathVariable("id") Long id, @RequestBody NotificacionDto notificaciondto) {
+        NotificacionDto actualizar = notificacionservice.actualizar(id, notificaciondto);
+        return ResponseEntity.ok(actualizar);
+    }
+
 }

@@ -11,4 +11,6 @@ public interface INotificacionService {
 
     void eliminar(Long id);
 
+    public NotificacionDto actualizar(Long id, NotificacionDto notificaciondto);
+
 }

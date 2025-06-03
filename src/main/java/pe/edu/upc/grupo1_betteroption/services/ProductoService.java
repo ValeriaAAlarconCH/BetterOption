@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import pe.edu.upc.grupo1_betteroption.dtos.ProductoDto;
 import pe.edu.upc.grupo1_betteroption.entities.Producto;
 import pe.edu.upc.grupo1_betteroption.interfaces.IProductoService;
+import pe.edu.upc.grupo1_betteroption.repositories.CategoriaRepository;
+import pe.edu.upc.grupo1_betteroption.repositories.MicroempresaRepository;
 import pe.edu.upc.grupo1_betteroption.repositories.ProductoRepository;
 
 import java.util.List;
@@ -15,6 +17,12 @@ import java.util.stream.Collectors;
 public class ProductoService implements IProductoService {
     @Autowired
     private ProductoRepository productorepository;
+
+    @Autowired
+    private MicroempresaRepository microempresarepository;
+
+    @Autowired
+    private CategoriaRepository categoriarepository;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -38,6 +46,26 @@ public class ProductoService implements IProductoService {
         } else {
             throw new RuntimeException("No se encontró el producto con ID: " + id);
         }
+    }
+
+    @Override
+    public ProductoDto actualizar(Long id, ProductoDto productodto) {
+        Producto productoExistente = productorepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("No se encontro el Producto con id: " + id));
+
+        productoExistente.setNombreProducto(productodto.getNombreProducto());
+        productoExistente.setDescripcion(productodto.getDescripcion());
+        productoExistente.setPrecio(Double.valueOf(productodto.getPrecio()));
+        productoExistente.setStock(productodto.getStock());
+        productoExistente.setImagen(productodto.getImagen());
+
+        productoExistente.setMicroempresa(microempresarepository.findById(id).get());
+
+        productoExistente.setCategoria(categoriarepository.findById(id).get());
+
+        Producto actualizado = productorepository.save(productoExistente);
+        return modelMapper.map(actualizado, ProductoDto.class);
+
     }
 
     @Override

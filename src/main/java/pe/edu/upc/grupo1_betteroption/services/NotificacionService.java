@@ -5,8 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pe.edu.upc.grupo1_betteroption.dtos.NotificacionDto;
 import pe.edu.upc.grupo1_betteroption.entities.Notificacion;
+import pe.edu.upc.grupo1_betteroption.entities.Usuario;
 import pe.edu.upc.grupo1_betteroption.interfaces.INotificacionService;
 import pe.edu.upc.grupo1_betteroption.repositories.NotificacionRepository;
+import pe.edu.upc.grupo1_betteroption.repositories.UsuarioRepository;
 
 import java.util.List;
 
@@ -14,6 +16,9 @@ import java.util.List;
 public class NotificacionService implements INotificacionService {
     @Autowired
     private NotificacionRepository notificacionrepository;
+
+    @Autowired
+    private UsuarioRepository usuariorepository;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -38,5 +43,21 @@ public class NotificacionService implements INotificacionService {
         } else {
             throw new RuntimeException("No se encontró la Notificación con ID: " + id);
         }
+    }
+
+    @Override
+    public NotificacionDto actualizar(Long id, NotificacionDto notificaciondto) {
+        Notificacion notificacionExistente = notificacionrepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("No se encontro la Notificacion con id: " + id));
+
+        notificacionExistente.setMensaje(notificaciondto.getMensaje());
+        notificacionExistente.setTipo(notificaciondto.getTipo());
+        notificacionExistente.setLeido(notificaciondto.getLeido());
+
+        Usuario usuario = usuariorepository.findById(id).get();
+        notificacionExistente.setUsuario(usuario);
+
+        Notificacion actualizado = notificacionrepository.save(notificacionExistente);
+        return modelMapper.map(actualizado, NotificacionDto.class);
     }
 }
