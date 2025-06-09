@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pe.edu.upc.grupo1_betteroption.dtos.ProductoCatalogoDto;
 import pe.edu.upc.grupo1_betteroption.dtos.ProductoDto;
+import pe.edu.upc.grupo1_betteroption.entities.CatalogoPromociones;
+import pe.edu.upc.grupo1_betteroption.entities.Producto;
 import pe.edu.upc.grupo1_betteroption.entities.ProductoCatalogo;
 import pe.edu.upc.grupo1_betteroption.interfaces.IProductoCatalogoService;
 import pe.edu.upc.grupo1_betteroption.repositories.CatalogoPromocionesRepository;
@@ -30,8 +32,25 @@ public class ProductoCatalogoService implements IProductoCatalogoService {
     @Override
     public ProductoCatalogoDto grabarProductoCatalogo(ProductoCatalogoDto dto) {
         ProductoCatalogo productocatalogo = modelMapper.map(dto, ProductoCatalogo.class);
-        ProductoCatalogo guardar = productocatalogorepository.save(productocatalogo);
-        return modelMapper.map(guardar, ProductoCatalogoDto.class);
+
+        if (dto.getCatalogopromocionesdto() != null && dto.getCatalogopromocionesdto().getId_catalogopromociones() != null) {
+            CatalogoPromociones catalogopromociones = catalogoPromocionesrepository.findById(dto.getCatalogopromocionesdto().getId_catalogopromociones())
+                    .orElseThrow(() -> new RuntimeException("CatalogoPromociones no encontrado con ID: " + dto.getCatalogopromocionesdto().getId_catalogopromociones()));
+            productocatalogo.setCatalogoPromociones(catalogopromociones);
+        } else {
+            throw new RuntimeException("Debe proporcionar el ID del catalogopromociones");
+        }
+
+        if (dto.getProductodto() != null && dto.getProductodto().getId_producto() != null) {
+            Producto producto = productorepository.findById(dto.getProductodto().getId_producto())
+                    .orElseThrow(() -> new RuntimeException("Producto no encontrado con ID: " + dto.getProductodto().getId_producto()));
+            productocatalogo.setProducto(producto);
+        } else {
+            throw new RuntimeException("Debe proporcionar el ID del producto");
+        }
+
+        ProductoCatalogo guardado = productocatalogorepository.save(productocatalogo);
+        return modelMapper.map(guardado, ProductoCatalogoDto.class);
     }
 
     @Override
@@ -57,9 +76,13 @@ public class ProductoCatalogoService implements IProductoCatalogoService {
 
         catalogoExistente.setDescuentoPorcentaje(Double.valueOf(productocatalogodto.getDescuentoPorcentaje()));
 
-        catalogoExistente.setCatalogoPromociones(catalogoPromocionesrepository.findById(id).get());
+        CatalogoPromociones catalogopromociones = catalogoPromocionesrepository.findById(productocatalogodto.getCatalogopromocionesdto().getId_catalogopromociones())
+                .orElseThrow(() -> new RuntimeException("ProductoCatalogo no encontrado"));
+        catalogoExistente.setCatalogoPromociones(catalogopromociones);
 
-        catalogoExistente.setProducto(productorepository.findById(id).get());
+        Producto producto = productorepository.findById(productocatalogodto.getProductodto().getId_producto())
+                .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+        catalogoExistente.setProducto(producto);
 
         ProductoCatalogo actualizado = productocatalogorepository.save(catalogoExistente);
         return modelMapper.map(actualizado, ProductoCatalogoDto.class);

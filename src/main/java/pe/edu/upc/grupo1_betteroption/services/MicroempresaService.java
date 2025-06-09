@@ -26,8 +26,17 @@ public class MicroempresaService implements IMicroempresaService {
     @Override
     public MicroempresaDto grabarMicroempresa(MicroempresaDto dto) {
         Microempresa microempresa = modelMapper.map(dto, Microempresa.class);
-        Microempresa guardar = microempresarepository.save(microempresa);
-        return modelMapper.map(guardar, MicroempresaDto.class);
+
+        if (dto.getUsuariodto() != null && dto.getUsuariodto().getId_usuario() != null) {
+            Usuario usuario = usuariorepository.findById(dto.getUsuariodto().getId_usuario())
+                    .orElseThrow(() -> new RuntimeException("Usuario no encontrado con ID: " + dto.getUsuariodto().getId_usuario()));
+            microempresa.setUsuario(usuario);
+        } else {
+            throw new RuntimeException("Debe proporcionar el ID del usuario");
+        }
+
+        Microempresa guardado = microempresarepository.save(microempresa);
+        return modelMapper.map(guardado, MicroempresaDto.class);
 
     }
 
@@ -57,7 +66,8 @@ public class MicroempresaService implements IMicroempresaService {
         microempresaExistente.setEmail(microempresadto.getEmail());
         microempresaExistente.setDescripcion(microempresadto.getDescripcion());
 
-        Usuario usuario = usuariorepository.findById(id).get();
+        Usuario usuario = usuariorepository.findById(microempresadto.getUsuariodto().getId_usuario())
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
         microempresaExistente.setUsuario(usuario);
 
         Microempresa actualizado = microempresarepository.save(microempresaExistente);

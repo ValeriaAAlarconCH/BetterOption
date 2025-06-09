@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pe.edu.upc.grupo1_betteroption.dtos.CatalogoPromocionesDto;
 import pe.edu.upc.grupo1_betteroption.entities.CatalogoPromociones;
+import pe.edu.upc.grupo1_betteroption.entities.Microempresa;
 import pe.edu.upc.grupo1_betteroption.interfaces.ICatalogoPromocionesService;
 import pe.edu.upc.grupo1_betteroption.repositories.CatalogoPromocionesRepository;
 import pe.edu.upc.grupo1_betteroption.repositories.MicroempresaRepository;
@@ -24,9 +25,18 @@ public class CatalogoPromocionesService implements ICatalogoPromocionesService {
 
     @Override
     public CatalogoPromocionesDto grabarCatalogoPromociones(CatalogoPromocionesDto dto) {
-        CatalogoPromociones competencia = modelMapper.map(dto, CatalogoPromociones.class);
-        CatalogoPromociones guardar = catalogopromocionesrepository.save(competencia);
-        return modelMapper.map(guardar, CatalogoPromocionesDto.class);
+        CatalogoPromociones catalogopromociones = modelMapper.map(dto, CatalogoPromociones.class);
+
+        if (dto.getMicroempresadto() != null && dto.getMicroempresadto().getId_microempresa() != null) {
+            Microempresa microempresa = microempresarepository.findById(dto.getMicroempresadto().getId_microempresa())
+                    .orElseThrow(() -> new RuntimeException("Microempresa no encontrado con ID: " + dto.getMicroempresadto().getId_microempresa()));
+            catalogopromociones.setMicroempresa(microempresa);
+        } else {
+            throw new RuntimeException("Debe proporcionar el ID de la microempresa");
+        }
+
+        CatalogoPromociones guardado = catalogopromocionesrepository.save(catalogopromociones);
+        return modelMapper.map(guardado, CatalogoPromocionesDto.class);
     }
 
     @Override
@@ -53,7 +63,9 @@ public class CatalogoPromocionesService implements ICatalogoPromocionesService {
         promocionExistente.setFechaInicio(promocionesdto.getFechaInicio());
         promocionExistente.setFechaFin(promocionesdto.getFechaFin());
 
-        promocionExistente.setMicroempresa(microempresarepository.findById(id).get());
+        Microempresa microempresa = microempresarepository.findById(promocionesdto.getMicroempresadto().getId_microempresa())
+                .orElseThrow(() -> new RuntimeException("Microempresa no encontrado"));
+        promocionExistente.setMicroempresa(microempresa);
 
         CatalogoPromociones actualizado = catalogopromocionesrepository.save(promocionExistente);
         return modelMapper.map(actualizado, CatalogoPromocionesDto.class);

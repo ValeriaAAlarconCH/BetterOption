@@ -27,8 +27,17 @@ public class NotificacionService implements INotificacionService {
     @Override
     public NotificacionDto grabarNotificacion(NotificacionDto dto) {
         Notificacion notificacion = modelMapper.map(dto, Notificacion.class);
-        Notificacion guardar = notificacionrepository.save(notificacion);
-        return modelMapper.map(guardar, NotificacionDto.class);
+
+        if (dto.getUsuariodto() != null && dto.getUsuariodto().getId_usuario() != null) {
+            Usuario usuario = usuariorepository.findById(dto.getUsuariodto().getId_usuario())
+                    .orElseThrow(() -> new RuntimeException("Usuario no encontrado con ID: " + dto.getUsuariodto().getId_usuario()));
+            notificacion.setUsuario(usuario);
+        } else {
+            throw new RuntimeException("Debe proporcionar el ID del usuario");
+        }
+
+        Notificacion guardado = notificacionrepository.save(notificacion);
+        return modelMapper.map(guardado, NotificacionDto.class);
     }
 
     @Override
@@ -54,7 +63,8 @@ public class NotificacionService implements INotificacionService {
         notificacionExistente.setTipo(notificaciondto.getTipo());
         notificacionExistente.setLeido(notificaciondto.getLeido());
 
-        Usuario usuario = usuariorepository.findById(id).get();
+        Usuario usuario = usuariorepository.findById(notificaciondto.getUsuariodto().getId_usuario())
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
         notificacionExistente.setUsuario(usuario);
 
         Notificacion actualizado = notificacionrepository.save(notificacionExistente);

@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import pe.edu.upc.grupo1_betteroption.dtos.ProductoDeseadoDto;
 import pe.edu.upc.grupo1_betteroption.dtos.ProductoDto;
 import pe.edu.upc.grupo1_betteroption.services.ProductoService;
 
