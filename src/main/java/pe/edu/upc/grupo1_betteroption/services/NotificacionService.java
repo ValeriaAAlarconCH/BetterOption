@@ -65,6 +65,7 @@ public class NotificacionService implements INotificacionService {
 
         Usuario usuario = usuariorepository.findById(notificaciondto.getUsuariodto().getId_usuario())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
         notificacionExistente.setUsuario(usuario);
 
         Notificacion actualizado = notificacionrepository.save(notificacionExistente);

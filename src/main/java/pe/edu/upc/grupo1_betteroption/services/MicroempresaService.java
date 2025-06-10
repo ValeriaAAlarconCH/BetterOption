@@ -68,6 +68,7 @@ public class MicroempresaService implements IMicroempresaService {
 
         Usuario usuario = usuariorepository.findById(microempresadto.getUsuariodto().getId_usuario())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
         microempresaExistente.setUsuario(usuario);
 
         Microempresa actualizado = microempresarepository.save(microempresaExistente);
