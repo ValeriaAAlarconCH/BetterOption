@@ -4,6 +4,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pe.edu.upc.grupo1_betteroption.dtos.ProductoDto;
+import pe.edu.upc.grupo1_betteroption.entities.Categoria;
+import pe.edu.upc.grupo1_betteroption.entities.Microempresa;
 import pe.edu.upc.grupo1_betteroption.entities.Producto;
 import pe.edu.upc.grupo1_betteroption.interfaces.IProductoService;
 import pe.edu.upc.grupo1_betteroption.repositories.CategoriaRepository;
@@ -30,8 +32,25 @@ public class ProductoService implements IProductoService {
     @Override
     public ProductoDto grabarProducto(ProductoDto productodto) {
         Producto producto = modelMapper.map(productodto, Producto.class);
-        Producto guardar = productorepository.save(producto);
-        return modelMapper.map(guardar, ProductoDto.class);
+
+        if (productodto.getMicroempresadto() != null && productodto.getMicroempresadto().getId_microempresa() != null) {
+            Microempresa microempresa = microempresarepository.findById(productodto.getMicroempresadto().getId_microempresa())
+                    .orElseThrow(() -> new RuntimeException("Microempresa no encontrado con ID: " + productodto.getMicroempresadto().getId_microempresa()));
+            producto.setMicroempresa(microempresa);
+        } else {
+            throw new RuntimeException("Debe proporcionar el ID de la microempresa");
+        }
+
+        if (productodto.getCategoriadto() != null && productodto.getCategoriadto().getId_categoria() != null) {
+            Categoria categoria = categoriarepository.findById(productodto.getCategoriadto().getId_categoria())
+                    .orElseThrow(() -> new RuntimeException("Categoria no encontrada con ID: " + productodto.getCategoriadto().getId_categoria()));
+            producto.setCategoria(categoria);
+        } else {
+            throw new RuntimeException("Debe proporcionar el ID de la categoria");
+        }
+
+        Producto guardado = productorepository.save(producto);
+        return modelMapper.map(guardado, ProductoDto.class);
     }
 
     @Override
@@ -59,9 +78,13 @@ public class ProductoService implements IProductoService {
         productoExistente.setStock(productodto.getStock());
         productoExistente.setImagen(productodto.getImagen());
 
-        productoExistente.setMicroempresa(microempresarepository.findById(id).get());
+        Microempresa microempresa = microempresarepository.findById(productodto.getMicroempresadto().getId_microempresa())
+                .orElseThrow(() -> new RuntimeException("Microempresa no encontrado"));
+        productoExistente.setMicroempresa(microempresa);
 
-        productoExistente.setCategoria(categoriarepository.findById(id).get());
+        Categoria categoria = categoriarepository.findById(productodto.getCategoriadto().getId_categoria())
+                .orElseThrow(() -> new RuntimeException("Categoria no encontrada"));
+        productoExistente.setCategoria(categoria);
 
         Producto actualizado = productorepository.save(productoExistente);
         return modelMapper.map(actualizado, ProductoDto.class);
