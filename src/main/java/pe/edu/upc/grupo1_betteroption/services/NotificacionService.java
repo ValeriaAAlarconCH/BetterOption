@@ -55,12 +55,7 @@ public class NotificacionService implements INotificacionService {
     }
 
     @Override
-    public NotificacionDto actualizar(NotificacionDto notificaciondto) {
-        Long id = notificaciondto.getId_notificacion();
-        if (id == null) {
-            throw new RuntimeException("El ID de la notificación no puede ser nulo");
-        }
-
+    public NotificacionDto actualizar(Long id, NotificacionDto notificaciondto) {
         Notificacion notificacionExistente = notificacionrepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("No se encontro la Notificacion con id: " + id));
 
@@ -68,22 +63,11 @@ public class NotificacionService implements INotificacionService {
         notificacionExistente.setTipo(notificaciondto.getTipo());
         notificacionExistente.setLeido(notificaciondto.getLeido());
 
-        if (notificaciondto.getUsuariodto() != null && notificaciondto.getUsuariodto().getId_usuario() != null) {
-            Usuario usuario = usuariorepository.findById(notificaciondto.getUsuariodto().getId_usuario())
-                    .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-            notificacionExistente.setUsuario(usuario);
-        } else {
-            throw new RuntimeException("Debe proporcionar el ID del usuario");
-        }
+        Usuario usuario = usuariorepository.findById(notificaciondto.getUsuariodto().getId_usuario())
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        notificacionExistente.setUsuario(usuario);
 
         Notificacion actualizado = notificacionrepository.save(notificacionExistente);
         return modelMapper.map(actualizado, NotificacionDto.class);
-    }
-
-    @Override
-    public NotificacionDto obtenerPorId(Long id) {
-        Notificacion notificacion = notificacionrepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Notificacion no encontrada con ID: " + id));
-        return modelMapper.map(notificacion, NotificacionDto.class);
     }
 }
