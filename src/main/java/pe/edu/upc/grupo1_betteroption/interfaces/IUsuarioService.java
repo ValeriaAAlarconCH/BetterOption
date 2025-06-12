@@ -11,5 +11,7 @@ public interface IUsuarioService {
 
     void eliminar(Long id);
 
-    UsuarioDto actualizar(Long id, UsuarioDto usuariodto);
+    UsuarioDto actualizar(UsuarioDto usuariodto);
+
+    public UsuarioDto obtenerPorId(Long id);
 }

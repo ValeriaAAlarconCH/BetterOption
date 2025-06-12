@@ -54,7 +54,12 @@ public class CatalogoPromocionesService implements ICatalogoPromocionesService {
     }
 
     @Override
-    public CatalogoPromocionesDto actualizar(Long id, CatalogoPromocionesDto promocionesdto) {
+    public CatalogoPromocionesDto actualizar(CatalogoPromocionesDto promocionesdto) {
+        Long id = promocionesdto.getId_catalogopromociones();
+        if (id == null) {
+            throw new RuntimeException("El ID del catálogo de promociones no puede ser nulo");
+        }
+
         CatalogoPromociones promocionExistente = catalogopromocionesrepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("No se encontro el Catalogo con id: " + id));
 
@@ -63,11 +68,22 @@ public class CatalogoPromocionesService implements ICatalogoPromocionesService {
         promocionExistente.setFechaInicio(promocionesdto.getFechaInicio());
         promocionExistente.setFechaFin(promocionesdto.getFechaFin());
 
-        Microempresa microempresa = microempresarepository.findById(promocionesdto.getMicroempresadto().getId_microempresa())
-                .orElseThrow(() -> new RuntimeException("Microempresa no encontrado"));
-        promocionExistente.setMicroempresa(microempresa);
+        if (promocionesdto.getMicroempresadto() != null && promocionesdto.getMicroempresadto().getId_microempresa() != null) {
+            Microempresa microempresa = microempresarepository.findById(promocionesdto.getMicroempresadto().getId_microempresa())
+                    .orElseThrow(() -> new RuntimeException("Microempresa no encontrada"));
+            promocionExistente.setMicroempresa(microempresa);
+        } else {
+            throw new RuntimeException("Debe proporcionar el ID de la microempresa");
+        }
 
         CatalogoPromociones actualizado = catalogopromocionesrepository.save(promocionExistente);
         return modelMapper.map(actualizado, CatalogoPromocionesDto.class);
+    }
+
+    @Override
+    public CatalogoPromocionesDto obtenerPorId(Long id) {
+        CatalogoPromociones catalogo = catalogopromocionesrepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("CatalogoPromociones no encontrado con ID: " + id));
+        return modelMapper.map(catalogo, CatalogoPromocionesDto.class);
     }
 }

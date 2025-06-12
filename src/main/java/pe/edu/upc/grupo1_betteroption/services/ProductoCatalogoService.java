@@ -70,14 +70,19 @@ public class ProductoCatalogoService implements IProductoCatalogoService {
     }
 
     @Override
-    public ProductoCatalogoDto actualizar(Long id, ProductoCatalogoDto productocatalogodto) {
+    public ProductoCatalogoDto actualizar(ProductoCatalogoDto productocatalogodto) {
+        Long id = productocatalogodto.getId_productocatalogo();
+        if (id == null) {
+            throw new RuntimeException("El ID del producto catálogo no puede ser nulo");
+        }
+
         ProductoCatalogo catalogoExistente = productocatalogorepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("No se encontro con id: " + id));
 
         catalogoExistente.setDescuentoPorcentaje(Double.valueOf(productocatalogodto.getDescuentoPorcentaje()));
 
         CatalogoPromociones catalogopromociones = catalogoPromocionesrepository.findById(productocatalogodto.getCatalogopromocionesdto().getId_catalogopromociones())
-                .orElseThrow(() -> new RuntimeException("ProductoCatalogo no encontrado"));
+                .orElseThrow(() -> new RuntimeException("CatalogoPromociones no encontrado"));
         catalogoExistente.setCatalogoPromociones(catalogopromociones);
 
         Producto producto = productorepository.findById(productocatalogodto.getProductodto().getId_producto())
@@ -86,7 +91,6 @@ public class ProductoCatalogoService implements IProductoCatalogoService {
 
         ProductoCatalogo actualizado = productocatalogorepository.save(catalogoExistente);
         return modelMapper.map(actualizado, ProductoCatalogoDto.class);
-
     }
 
     @Override
@@ -95,6 +99,13 @@ public class ProductoCatalogoService implements IProductoCatalogoService {
                 .stream()
                 .map(p -> modelMapper.map(p, ProductoDto.class))
                 .toList();
+    }
+
+    @Override
+    public ProductoCatalogoDto obtenerPorId(Long id) {
+        ProductoCatalogo producto = productocatalogorepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("ProductoCatalogo no encontrado con ID: " + id));
+        return modelMapper.map(producto, ProductoCatalogoDto.class);
     }
 
 }

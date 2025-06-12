@@ -13,10 +13,11 @@ public interface IWishlistService {
 
     void eliminar(Long id);
 
-    WishlistDto actualizar(Long id, WishlistDto wishlistdto);
+    WishlistDto actualizar(WishlistDto wishlistdto);
 
     List<ProductoDto> obtenerWishlistPorUsuario(Long idUsuario);
 
     List<ProductoDeseadoDto> obtenerProductosMasDeseados();
 
+    public WishlistDto obtenerPorId(Long id);
 }

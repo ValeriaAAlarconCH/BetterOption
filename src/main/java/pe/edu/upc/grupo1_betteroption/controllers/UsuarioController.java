@@ -35,11 +35,17 @@ public class UsuarioController {
         return ResponseEntity.ok("Usuario eliminado correctamente");
     }
 
-    @PutMapping("/actualizar/{id}")
+    @PutMapping("/actualizar")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-    public ResponseEntity<UsuarioDto> actualizar(@PathVariable("id") Long id, @RequestBody UsuarioDto usuariodto) {
-        UsuarioDto actualizar = usuarioservice.actualizar(id, usuariodto);
-        return ResponseEntity.ok(actualizar);
+    public ResponseEntity<UsuarioDto> actualizar(@RequestBody UsuarioDto usuariodto) {
+        UsuarioDto actualizado = usuarioservice.actualizar(usuariodto);
+        return ResponseEntity.ok(actualizado);
+    }
+
+    @GetMapping("/listarid/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<UsuarioDto> obtenerPorId(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(usuarioservice.obtenerPorId(id));
     }
 
 }

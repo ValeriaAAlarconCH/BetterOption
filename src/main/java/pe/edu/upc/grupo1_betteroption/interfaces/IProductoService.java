@@ -11,11 +11,11 @@ public interface IProductoService {
 
     void eliminar(Long id);
 
-    public ProductoDto actualizar(Long id, ProductoDto productodto);
+    public ProductoDto actualizar(ProductoDto productodto);
 
     List<ProductoDto> buscarPorNombre(String nombre);
 
     List<ProductoDto> filtrarPorPrecio(Double min, Double max);
 
-
+    public ProductoDto obtenerPorId(Long id);
 }

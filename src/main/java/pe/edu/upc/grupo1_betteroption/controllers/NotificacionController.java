@@ -34,11 +34,17 @@ public class NotificacionController {
         return ResponseEntity.ok("Notificación Eliminada correctamente");
     }
 
-    @PutMapping("/actualizar/{id}")
+    @PutMapping("/actualizar")
     @PreAuthorize("hasAnyRole('ADMIN', 'MICROEMPRESARIO')")
-    public ResponseEntity<NotificacionDto> actualizar(@PathVariable("id") Long id, @RequestBody NotificacionDto notificaciondto) {
-        NotificacionDto actualizar = notificacionservice.actualizar(id, notificaciondto);
-        return ResponseEntity.ok(actualizar);
+    public ResponseEntity<NotificacionDto> actualizar(@RequestBody NotificacionDto notificaciondto) {
+        NotificacionDto actualizado = notificacionservice.actualizar(notificaciondto);
+        return ResponseEntity.ok(actualizado);
+    }
+
+    @GetMapping("/listarid/{id}")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'MICROEMPRESARIO')")
+    public ResponseEntity<NotificacionDto> obtenerPorId(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(notificacionservice.obtenerPorId(id));
     }
 
 }

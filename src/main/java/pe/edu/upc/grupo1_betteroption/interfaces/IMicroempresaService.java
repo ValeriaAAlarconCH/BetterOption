@@ -11,5 +11,7 @@ public interface IMicroempresaService {
 
     void eliminar(Long id);
 
-    public MicroempresaDto actualizar(Long id, MicroempresaDto microempresadto);
+    public MicroempresaDto actualizar(MicroempresaDto microempresadto);
+
+    public MicroempresaDto obtenerPorId(Long id);
 }

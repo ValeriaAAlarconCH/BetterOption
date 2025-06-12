@@ -42,7 +42,12 @@ public class UsuarioService implements IUsuarioService {
     }
 
     @Override
-    public UsuarioDto actualizar(Long id, UsuarioDto usuariodto) {
+    public UsuarioDto actualizar(UsuarioDto usuariodto) {
+        Long id = usuariodto.getId_usuario();
+        if (id == null) {
+            throw new RuntimeException("El ID del usuario no puede ser nulo");
+        }
+
         Usuario usuarioExistente = usuariorepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("No se encontró el usuario con ID: " + id));
 
@@ -52,6 +57,13 @@ public class UsuarioService implements IUsuarioService {
 
         Usuario actualizado = usuariorepository.save(usuarioExistente);
         return modelMapper.map(actualizado, UsuarioDto.class);
+    }
+
+    @Override
+    public UsuarioDto obtenerPorId(Long id) {
+        Usuario usuario = usuariorepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado con ID: " + id));
+        return modelMapper.map(usuario, UsuarioDto.class);
     }
 
 

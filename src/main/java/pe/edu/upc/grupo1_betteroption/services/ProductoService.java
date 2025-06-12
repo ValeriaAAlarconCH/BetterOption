@@ -68,7 +68,12 @@ public class ProductoService implements IProductoService {
     }
 
     @Override
-    public ProductoDto actualizar(Long id, ProductoDto productodto) {
+    public ProductoDto actualizar(ProductoDto productodto) {
+        Long id = productodto.getId_producto();
+        if (id == null) {
+            throw new RuntimeException("El ID del producto no puede ser nulo");
+        }
+
         Producto productoExistente = productorepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("No se encontro el Producto con id: " + id));
 
@@ -88,7 +93,6 @@ public class ProductoService implements IProductoService {
 
         Producto actualizado = productorepository.save(productoExistente);
         return modelMapper.map(actualizado, ProductoDto.class);
-
     }
 
     @Override
@@ -102,6 +106,13 @@ public class ProductoService implements IProductoService {
     public List<ProductoDto> filtrarPorPrecio(Double min, Double max) {
         return productorepository.findByPrecioBetween(min, max)
                 .stream().map(p -> modelMapper.map(p, ProductoDto.class)).collect(Collectors.toList());
+    }
+
+    @Override
+    public ProductoDto obtenerPorId(Long id) {
+        Producto producto = productorepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Producto no encontrado con ID: " + id));
+        return modelMapper.map(producto, ProductoDto.class);
     }
 
 

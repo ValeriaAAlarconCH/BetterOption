@@ -69,7 +69,12 @@ public class WishlistService implements IWishlistService {
     }
 
     @Override
-    public WishlistDto actualizar(Long id, WishlistDto wishlistdto) {
+    public WishlistDto actualizar(WishlistDto wishlistdto) {
+        Long id = wishlistdto.getId_wishlist();
+        if (id == null) {
+            throw new RuntimeException("El ID de la wishlist no puede ser nulo");
+        }
+
         Wishlist wishlistExistente = wishlistrepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("No se encontro la Wishlist con id: " + id));
 
@@ -96,6 +101,13 @@ public class WishlistService implements IWishlistService {
     @Override
     public List<ProductoDeseadoDto> obtenerProductosMasDeseados() {
         return wishlistrepository.findProductosMasDeseados();
+    }
+
+    @Override
+    public WishlistDto obtenerPorId(Long id) {
+        Wishlist wishlist = wishlistrepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Wishlist no encontrado con ID: " + id));
+        return modelMapper.map(wishlist, WishlistDto.class);
     }
 
 }

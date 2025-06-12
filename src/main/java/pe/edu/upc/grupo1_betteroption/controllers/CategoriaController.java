@@ -35,11 +35,17 @@ public class CategoriaController {
         return ResponseEntity.ok("Categoria Eliminada correctamente");
     }
 
-    @PutMapping("/actualizar/{id}")
+    @PutMapping("/actualizar")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<CategoriaDto> actualizar(@PathVariable("id") Long id, @RequestBody CategoriaDto categoriadto) {
-        CategoriaDto actualizar = categoriaservice.actualizar(id, categoriadto);
-        return ResponseEntity.ok(actualizar);
+    public ResponseEntity<CategoriaDto> actualizar(@RequestBody CategoriaDto categoriadto) {
+        CategoriaDto actualizado = categoriaservice.actualizar(categoriadto);
+        return ResponseEntity.ok(actualizado);
+    }
+
+    @GetMapping("/listarid/{id}")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'MICROEMPRESARIO')")
+    public ResponseEntity<CategoriaDto> obtenerPorId(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(categoriaservice.obtenerPorId(id));
     }
 
 }

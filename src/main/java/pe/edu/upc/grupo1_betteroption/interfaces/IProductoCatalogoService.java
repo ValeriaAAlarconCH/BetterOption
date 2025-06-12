@@ -12,8 +12,9 @@ public interface IProductoCatalogoService {
 
     void eliminar(Long id);
 
-    public ProductoCatalogoDto actualizar(Long id, ProductoCatalogoDto productocatalogodto);
+    public ProductoCatalogoDto actualizar(ProductoCatalogoDto productocatalogodto);
 
     List<ProductoDto> obtenerProductosConPromocionesActivas();
 
+    public ProductoCatalogoDto obtenerPorId(Long id);
 }

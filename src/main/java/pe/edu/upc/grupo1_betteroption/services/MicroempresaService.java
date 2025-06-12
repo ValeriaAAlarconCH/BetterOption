@@ -55,24 +55,38 @@ public class MicroempresaService implements IMicroempresaService {
     }
 
     @Override
-    public MicroempresaDto actualizar(Long id, MicroempresaDto microempresadto) {
+    public MicroempresaDto actualizar(MicroempresaDto microempresadto) {
+        Long id = microempresadto.getId_microempresa();
+        if (id == null) {
+            throw new RuntimeException("El ID de la microempresa no puede ser nulo");
+        }
+
         Microempresa microempresaExistente = microempresarepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("No se encontro la Microempresa con id: " + id));
 
         microempresaExistente.setNombreNegocio(microempresadto.getNombreNegocio());
         microempresaExistente.setRubro(microempresadto.getRubro());
-        microempresaExistente.setDireccion( microempresadto.getDireccion());
+        microempresaExistente.setDireccion(microempresadto.getDireccion());
         microempresaExistente.setTelefono(microempresadto.getTelefono());
         microempresaExistente.setEmail(microempresadto.getEmail());
         microempresaExistente.setDescripcion(microempresadto.getDescripcion());
 
-        Usuario usuario = usuariorepository.findById(microempresadto.getUsuariodto().getId_usuario())
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-
-        microempresaExistente.setUsuario(usuario);
+        if (microempresadto.getUsuariodto() != null && microempresadto.getUsuariodto().getId_usuario() != null) {
+            Usuario usuario = usuariorepository.findById(microempresadto.getUsuariodto().getId_usuario())
+                    .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+            microempresaExistente.setUsuario(usuario);
+        } else {
+            throw new RuntimeException("Debe proporcionar el ID del usuario");
+        }
 
         Microempresa actualizado = microempresarepository.save(microempresaExistente);
         return modelMapper.map(actualizado, MicroempresaDto.class);
+    }
 
+    @Override
+    public MicroempresaDto obtenerPorId(Long id) {
+        Microempresa microempresa = microempresarepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Microempresa no encontrada con ID: " + id));
+        return modelMapper.map(microempresa, MicroempresaDto.class);
     }
 }
