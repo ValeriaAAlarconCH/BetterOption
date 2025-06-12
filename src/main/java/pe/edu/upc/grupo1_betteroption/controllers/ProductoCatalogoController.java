@@ -35,17 +35,23 @@ public class ProductoCatalogoController {
         return ResponseEntity.ok("ProductoCatalogo Eliminado correctamente");
     }
 
-    @PutMapping("/actualizar/{id}")
+    @PutMapping("/actualizar")
     @PreAuthorize("hasAnyRole('ADMIN', 'MICROEMPRESARIO')")
-    public ResponseEntity<ProductoCatalogoDto> actualizar(@PathVariable("id") Long id, @RequestBody ProductoCatalogoDto productocatalogodto) {
-        ProductoCatalogoDto actualizar = productocatalogoservice.actualizar(id, productocatalogodto);
-        return ResponseEntity.ok(actualizar);
+    public ResponseEntity<ProductoCatalogoDto> actualizar(@RequestBody ProductoCatalogoDto productocatalogodto) {
+        ProductoCatalogoDto actualizado = productocatalogoservice.actualizar(productocatalogodto);
+        return ResponseEntity.ok(actualizado);
     }
 
     @GetMapping("/promocionesactivas")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'MICROEMPRESARIO')")
     public ResponseEntity<List<ProductoDto>> promocionesActivas() {
         return ResponseEntity.ok(productocatalogoservice.obtenerProductosConPromocionesActivas());
+    }
+
+    @GetMapping("/listarid/{id}")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'MICROEMPRESARIO')")
+    public ResponseEntity<ProductoCatalogoDto> obtenerPorId(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(productocatalogoservice.obtenerPorId(id));
     }
 
 }

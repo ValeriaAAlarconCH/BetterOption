@@ -41,14 +41,26 @@ public class CategoriaService implements ICategoriaService {
     }
 
     @Override
-    public CategoriaDto actualizar(Long id, CategoriaDto categoriadto) {
+    public CategoriaDto actualizar(CategoriaDto categoriadto) {
+        Long id = categoriadto.getId_categoria();
+        if (id == null) {
+            throw new RuntimeException("El ID de la categoría no puede ser nulo");
+        }
+
         Categoria categoriaExistente = categoriarepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("No se encontró el usuario con ID: " + id));
+                .orElseThrow(() -> new RuntimeException("No se encontró la categoría con ID: " + id));
 
         categoriaExistente.setNombreCategoria(categoriadto.getNombreCategoria());
         categoriaExistente.setDescripcion(categoriadto.getDescripcion());
 
-        Categoria actualizar = categoriarepository.save(categoriaExistente);
-        return modelMapper.map(actualizar, CategoriaDto.class);
+        Categoria actualizado = categoriarepository.save(categoriaExistente);
+        return modelMapper.map(actualizado, CategoriaDto.class);
+    }
+
+    @Override
+    public CategoriaDto obtenerPorId(Long id) {
+        Categoria categoria = categoriarepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Categoria no encontrada con ID: " + id));
+        return modelMapper.map(categoria, CategoriaDto.class);
     }
 }

@@ -36,11 +36,11 @@ public class WishlistController {
         return ResponseEntity.ok("Wishlist eliminado correctamente");
     }
 
-    @PutMapping("/actualizar/{id}")
+    @PutMapping("/actualizar")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-    public ResponseEntity<WishlistDto> actualizar(@PathVariable("id") Long id, @RequestBody WishlistDto wishlistdto) {
-        WishlistDto actualizar = wishlistservice.actualizar(id, wishlistdto);
-        return ResponseEntity.ok(actualizar);
+    public ResponseEntity<WishlistDto> actualizar(@RequestBody WishlistDto wishlistdto) {
+        WishlistDto actualizado = wishlistservice.actualizar(wishlistdto);
+        return ResponseEntity.ok(actualizado);
     }
 
     @GetMapping("/wishlistusuario/{idusuario}")
@@ -53,6 +53,12 @@ public class WishlistController {
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public ResponseEntity<List<ProductoDeseadoDto>> productosMasDeseados() {
         return ResponseEntity.ok(wishlistservice.obtenerProductosMasDeseados());
+    }
+
+    @GetMapping("/listarid/{id}")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+    public ResponseEntity<WishlistDto> obtenerPorId(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(wishlistservice.obtenerPorId(id));
     }
 
 }

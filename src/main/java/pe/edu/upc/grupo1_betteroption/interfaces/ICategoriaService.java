@@ -11,6 +11,7 @@ public interface ICategoriaService {
 
     void eliminar(Long id);
 
-    public CategoriaDto actualizar(Long id, CategoriaDto categoriadto);
+    public CategoriaDto actualizar(CategoriaDto categoriadto);
 
+    public CategoriaDto obtenerPorId(Long id);
 }

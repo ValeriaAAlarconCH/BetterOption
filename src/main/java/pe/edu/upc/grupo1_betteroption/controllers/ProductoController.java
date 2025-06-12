@@ -34,11 +34,11 @@ public class ProductoController {
         return ResponseEntity.ok("Producto eliminado correctamente");
     }
 
-    @PutMapping("/actualizar/{id}")
+    @PutMapping("/actualizar")
     @PreAuthorize("hasAnyRole('ADMIN', 'MICROEMPRESARIO')")
-    public ResponseEntity<ProductoDto> actualizar(@PathVariable("id") Long id, @RequestBody ProductoDto productodto) {
-        ProductoDto actualizar = productoservice.actualizar(id, productodto);
-        return ResponseEntity.ok(actualizar);
+    public ResponseEntity<ProductoDto> actualizar(@RequestBody ProductoDto productodto) {
+        ProductoDto actualizado = productoservice.actualizar(productodto);
+        return ResponseEntity.ok(actualizado);
     }
 
     @GetMapping("/buscarnombre/{nombre}")
@@ -59,5 +59,10 @@ public class ProductoController {
         return ResponseEntity.ok(productoservice.filtrarPorPrecio(min, max));
     }
 
+    @GetMapping("/listarid/{id}")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'MICROEMPRESARIO')")
+    public ResponseEntity<ProductoDto> obtenerPorId(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(productoservice.obtenerPorId(id));
+    }
 
 }

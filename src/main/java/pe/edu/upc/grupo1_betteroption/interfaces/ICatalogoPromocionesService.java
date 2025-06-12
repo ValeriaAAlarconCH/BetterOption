@@ -11,5 +11,7 @@ public interface ICatalogoPromocionesService {
 
     void eliminar(Long id);
 
-    public CatalogoPromocionesDto actualizar(Long id, CatalogoPromocionesDto promocionesdto);
+    public CatalogoPromocionesDto actualizar(CatalogoPromocionesDto promocionesdto);
+
+    public CatalogoPromocionesDto obtenerPorId(Long id);
 }

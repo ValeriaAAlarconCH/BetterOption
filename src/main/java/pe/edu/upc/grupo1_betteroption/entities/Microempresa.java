@@ -15,12 +15,25 @@ public class Microempresa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_microempresa;
+
+    @Column(name = "nombre_negocio", nullable = false)
     private String nombreNegocio;
+
+    @Column(name = "rubro", nullable = false)
     private String rubro;
+
+    @Column(name = "direccion", nullable = false)
     private String direccion;
+
+    @Column(name = "telefono", nullable = false)
     private Integer telefono;
+
+    @Column(name = "email", nullable = false)
     private String email;
+
+    @Column(name = "descripcion", nullable = false)
     private String descripcion;
+
     @ManyToOne
     @JoinColumn(name = "id_usuario")
     private Usuario usuario;

@@ -17,13 +17,15 @@ public class Wishlist {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_wishlist;
+
+    @Column(name = "fecha_agregado", nullable = false)
     private LocalDate fechaAgregado;
+
     @ManyToOne
     @JoinColumn(name = "id_usuario")
     private Usuario usuario;
+
     @ManyToOne
     @JoinColumn(name = "id_producto")
     private Producto producto;
-
-
 }
