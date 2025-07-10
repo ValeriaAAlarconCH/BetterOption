@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -16,5 +17,5 @@ public class WishlistDto implements Serializable {
     private Long id_wishlist;
     private LocalDate fechaAgregado;
     private UsuarioDto usuariodto;
-    private ProductoDto productodto;
+    private List<ProductoDto> productosdto;
 }

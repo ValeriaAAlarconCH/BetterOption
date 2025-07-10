@@ -4,12 +4,14 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pe.edu.upc.grupo1_betteroption.dtos.CatalogoPromocionesDto;
+import pe.edu.upc.grupo1_betteroption.dtos.MicroempresaDto;
 import pe.edu.upc.grupo1_betteroption.entities.CatalogoPromociones;
 import pe.edu.upc.grupo1_betteroption.entities.Microempresa;
 import pe.edu.upc.grupo1_betteroption.interfaces.ICatalogoPromocionesService;
 import pe.edu.upc.grupo1_betteroption.repositories.CatalogoPromocionesRepository;
 import pe.edu.upc.grupo1_betteroption.repositories.MicroempresaRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -41,7 +43,20 @@ public class CatalogoPromocionesService implements ICatalogoPromocionesService {
 
     @Override
     public List<CatalogoPromocionesDto> getCatalogosPromociones() {
-        return modelMapper.map(catalogopromocionesrepository.findAll(), List.class);
+        List<CatalogoPromociones> lista = catalogopromocionesrepository.findAll();
+        List<CatalogoPromocionesDto> dtoLista = new ArrayList<>();
+
+        for (CatalogoPromociones c : lista) {
+            CatalogoPromocionesDto dto = modelMapper.map(c, CatalogoPromocionesDto.class);
+
+            if (c.getMicroempresa() != null) {
+                dto.setMicroempresadto(modelMapper.map(c.getMicroempresa(), MicroempresaDto.class));
+            }
+
+            dtoLista.add(dto);
+        }
+
+        return dtoLista;
     }
 
     @Override
@@ -84,6 +99,13 @@ public class CatalogoPromocionesService implements ICatalogoPromocionesService {
     public CatalogoPromocionesDto obtenerPorId(Long id) {
         CatalogoPromociones catalogo = catalogopromocionesrepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("CatalogoPromociones no encontrado con ID: " + id));
-        return modelMapper.map(catalogo, CatalogoPromocionesDto.class);
+
+        CatalogoPromocionesDto dto = modelMapper.map(catalogo, CatalogoPromocionesDto.class);
+
+        if (catalogo.getMicroempresa() != null) {
+            dto.setMicroempresadto(modelMapper.map(catalogo.getMicroempresa(), MicroempresaDto.class));
+        }
+
+        return dto;
     }
 }

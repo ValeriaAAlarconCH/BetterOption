@@ -65,6 +65,4 @@ public class UsuarioService implements IUsuarioService {
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado con ID: " + id));
         return modelMapper.map(usuario, UsuarioDto.class);
     }
-
-
 }

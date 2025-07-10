@@ -3,6 +3,7 @@ package pe.edu.upc.grupo1_betteroption.services;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pe.edu.upc.grupo1_betteroption.dtos.CatalogoPromocionesDto;
 import pe.edu.upc.grupo1_betteroption.dtos.ProductoCatalogoDto;
 import pe.edu.upc.grupo1_betteroption.dtos.ProductoDto;
 import pe.edu.upc.grupo1_betteroption.entities.CatalogoPromociones;
@@ -13,6 +14,7 @@ import pe.edu.upc.grupo1_betteroption.repositories.CatalogoPromocionesRepository
 import pe.edu.upc.grupo1_betteroption.repositories.ProductoCatalogoRepository;
 import pe.edu.upc.grupo1_betteroption.repositories.ProductoRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -55,9 +57,23 @@ public class ProductoCatalogoService implements IProductoCatalogoService {
 
     @Override
     public List<ProductoCatalogoDto> getProductosCatalogos() {
-        return productocatalogorepository.findAll().stream()
-                .map(productocatalogo -> modelMapper.map(productocatalogo, ProductoCatalogoDto.class))
-                .toList();
+        List<ProductoCatalogo> lista = productocatalogorepository.findAll();
+        List<ProductoCatalogoDto> dtoLista = new ArrayList<>();
+
+        for (ProductoCatalogo pc : lista) {
+            ProductoCatalogoDto dto = modelMapper.map(pc, ProductoCatalogoDto.class);
+
+            if (pc.getProducto() != null) {
+                dto.setProductodto(modelMapper.map(pc.getProducto(), ProductoDto.class));
+            }
+            if (pc.getCatalogoPromociones() != null) {
+                dto.setCatalogopromocionesdto(modelMapper.map(pc.getCatalogoPromociones(), CatalogoPromocionesDto.class));
+            }
+
+            dtoLista.add(dto);
+        }
+
+        return dtoLista;
     }
 
     @Override
@@ -103,9 +119,18 @@ public class ProductoCatalogoService implements IProductoCatalogoService {
 
     @Override
     public ProductoCatalogoDto obtenerPorId(Long id) {
-        ProductoCatalogo producto = productocatalogorepository.findById(id)
+        ProductoCatalogo pc = productocatalogorepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("ProductoCatalogo no encontrado con ID: " + id));
-        return modelMapper.map(producto, ProductoCatalogoDto.class);
-    }
 
+        ProductoCatalogoDto dto = modelMapper.map(pc, ProductoCatalogoDto.class);
+
+        if (pc.getProducto() != null) {
+            dto.setProductodto(modelMapper.map(pc.getProducto(), ProductoDto.class));
+        }
+        if (pc.getCatalogoPromociones() != null) {
+            dto.setCatalogopromocionesdto(modelMapper.map(pc.getCatalogoPromociones(), CatalogoPromocionesDto.class));
+        }
+
+        return dto;
+    }
 }

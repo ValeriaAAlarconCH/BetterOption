@@ -2,14 +2,18 @@ package pe.edu.upc.grupo1_betteroption.services;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 import pe.edu.upc.grupo1_betteroption.dtos.NotificacionDto;
+import pe.edu.upc.grupo1_betteroption.dtos.UsuarioDto;
 import pe.edu.upc.grupo1_betteroption.entities.Notificacion;
 import pe.edu.upc.grupo1_betteroption.entities.Usuario;
 import pe.edu.upc.grupo1_betteroption.interfaces.INotificacionService;
 import pe.edu.upc.grupo1_betteroption.repositories.NotificacionRepository;
 import pe.edu.upc.grupo1_betteroption.repositories.UsuarioRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -37,12 +41,27 @@ public class NotificacionService implements INotificacionService {
         }
 
         Notificacion guardado = notificacionrepository.save(notificacion);
-        return modelMapper.map(guardado, NotificacionDto.class);
+
+        NotificacionDto respuesta = modelMapper.map(guardado, NotificacionDto.class);
+        respuesta.setUsuariodto(modelMapper.map(guardado.getUsuario(), UsuarioDto.class)); // Se agrego esa linea
+
+        return respuesta;
     }
 
     @Override
     public List<NotificacionDto> getNotificaciones() {
-        return modelMapper.map(notificacionrepository.findAll(), List.class);
+        List<Notificacion> lista = notificacionrepository.findAll();//se agrego lo de abajo
+        List<NotificacionDto> dtoLista = new ArrayList<>();
+
+        for (Notificacion noti : lista) {
+            NotificacionDto dto = modelMapper.map(noti, NotificacionDto.class);
+
+            if (noti.getUsuario() != null) {
+                dto.setUsuariodto(modelMapper.map(noti.getUsuario(), UsuarioDto.class));
+            }
+            dtoLista.add(dto);
+        }
+        return dtoLista;
     }
 
     @Override
@@ -50,7 +69,7 @@ public class NotificacionService implements INotificacionService {
         if (notificacionrepository.existsById(id)) {
             notificacionrepository.deleteById(id);
         } else {
-            throw new RuntimeException("No se encontró la Notificación con ID: " + id);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No se encontró la Notificación con ID: " + id); // se modifico esta linea
         }
     }
 

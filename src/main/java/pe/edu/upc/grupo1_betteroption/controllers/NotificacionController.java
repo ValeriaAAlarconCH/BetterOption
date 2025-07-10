@@ -1,5 +1,6 @@
 package pe.edu.upc.grupo1_betteroption.controllers;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -9,7 +10,12 @@ import pe.edu.upc.grupo1_betteroption.services.NotificacionService;
 
 import java.util.List;
 
+@Slf4j
 @RestController
+@CrossOrigin(origins = "http://localhost:4200",
+        allowCredentials = "true",
+        exposedHeaders = "Authorization")
+
 @RequestMapping("/notificaciones")
 public class NotificacionController {
     @Autowired

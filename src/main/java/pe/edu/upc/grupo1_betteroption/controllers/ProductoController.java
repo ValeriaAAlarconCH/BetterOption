@@ -1,5 +1,6 @@
 package pe.edu.upc.grupo1_betteroption.controllers;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -9,7 +10,12 @@ import pe.edu.upc.grupo1_betteroption.services.ProductoService;
 
 import java.util.List;
 
+@Slf4j
 @RestController
+@CrossOrigin(origins = "http://localhost:4200",
+        allowCredentials = "true",
+        exposedHeaders = "Authorization")
+
 @RequestMapping("/productos")
 public class ProductoController {
     @Autowired
@@ -46,12 +52,6 @@ public class ProductoController {
     public ResponseEntity<List<ProductoDto>> buscarPorNombre(@PathVariable("nombre") String nombre) {
         return ResponseEntity.ok(productoservice.buscarPorNombre(nombre));
     }
-
-//    @GetMapping("/FiltroCategoria/{idCategoria}")
-//    @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'MICROEMPRESARIO')")
-//    public ResponseEntity<List<ProductoDto>> filtrarPorCategoria(@PathVariable Long idCategoria) {
-//        return ResponseEntity.ok(productoservice.filtrarPorCategoria(idCategoria));
-//    }
 
     @GetMapping("/filtroprecio/{min}/{max}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'MICROEMPRESARIO')")
