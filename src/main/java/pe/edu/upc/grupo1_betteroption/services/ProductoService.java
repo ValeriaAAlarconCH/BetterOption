@@ -3,6 +3,8 @@ package pe.edu.upc.grupo1_betteroption.services;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pe.edu.upc.grupo1_betteroption.dtos.CategoriaDto;
+import pe.edu.upc.grupo1_betteroption.dtos.MicroempresaDto;
 import pe.edu.upc.grupo1_betteroption.dtos.ProductoDto;
 import pe.edu.upc.grupo1_betteroption.entities.Categoria;
 import pe.edu.upc.grupo1_betteroption.entities.Microempresa;
@@ -12,6 +14,7 @@ import pe.edu.upc.grupo1_betteroption.repositories.CategoriaRepository;
 import pe.edu.upc.grupo1_betteroption.repositories.MicroempresaRepository;
 import pe.edu.upc.grupo1_betteroption.repositories.ProductoRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,12 +53,32 @@ public class ProductoService implements IProductoService {
         }
 
         Producto guardado = productorepository.save(producto);
-        return modelMapper.map(guardado, ProductoDto.class);
+        ProductoDto respuesta = modelMapper.map(guardado, ProductoDto.class);
+        respuesta.setMicroempresadto(modelMapper.map(guardado.getMicroempresa(), MicroempresaDto.class));
+        respuesta.setCategoriadto(modelMapper.map(guardado.getCategoria(), CategoriaDto.class));
+        return respuesta;
     }
 
     @Override
     public List<ProductoDto> getProductos() {
-        return modelMapper.map(productorepository.findAll(), List.class);
+        List<Producto> lista = productorepository.findAll();
+        List<ProductoDto> dtoLista = new ArrayList<>();
+
+        for (Producto p : lista) {
+            ProductoDto dto = modelMapper.map(p, ProductoDto.class);
+
+            if (p.getMicroempresa() != null) {
+                dto.setMicroempresadto(modelMapper.map(p.getMicroempresa(), MicroempresaDto.class));
+            }
+
+            if (p.getCategoria() != null) {
+                dto.setCategoriadto(modelMapper.map(p.getCategoria(), CategoriaDto.class));
+            }
+
+            dtoLista.add(dto);
+        }
+
+        return dtoLista;
     }
 
     @Override
@@ -114,6 +137,4 @@ public class ProductoService implements IProductoService {
                 .orElseThrow(() -> new RuntimeException("Producto no encontrado con ID: " + id));
         return modelMapper.map(producto, ProductoDto.class);
     }
-
-
 }

@@ -20,4 +20,6 @@ public interface IWishlistService {
     List<ProductoDeseadoDto> obtenerProductosMasDeseados();
 
     public WishlistDto obtenerPorId(Long id);
+
+    WishlistDto agregarProductoAWishlist(Long idWishlist, Long idProducto);
 }

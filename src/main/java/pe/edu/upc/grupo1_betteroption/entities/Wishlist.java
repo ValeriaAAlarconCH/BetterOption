@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Setter
 @Getter
@@ -25,7 +27,11 @@ public class Wishlist {
     @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 
-    @ManyToOne
-    @JoinColumn(name = "id_producto")
-    private Producto producto;
+    @ManyToMany
+    @JoinTable(
+            name = "wishlist_producto",
+            joinColumns = @JoinColumn(name = "wishlist_id"),
+            inverseJoinColumns = @JoinColumn(name = "producto_id")
+    )
+    private List<Producto> productos = new ArrayList<>();
 }

@@ -10,25 +10,22 @@ import pe.edu.upc.grupo1_betteroption.entities.Wishlist;
 import java.util.List;
 
 public interface WishlistRepository extends JpaRepository<Wishlist,Long> {
-    //Wishlist de usuario
+    //Productos en wishlist de un usuario
     @Query("""
-SELECT w.producto
-FROM Wishlist w
-WHERE w.usuario.id_Usuario = :idUsuario
-
-""")
+        SELECT p
+        FROM Wishlist w
+        JOIN w.productos p
+        WHERE w.usuario.id_Usuario = :idUsuario
+    """)
     List<Producto> findProductosEnWishlistPorUsuario(@Param("idUsuario") Long idUsuario);
 
-
-
-    //Productos mas deseados
+    //Productos más deseados
     @Query("""
-SELECT new pe.edu.upc.grupo1_betteroption.dtos.ProductoDeseadoDto(w.producto.nombreProducto, COUNT(w))
-FROM Wishlist w
-GROUP BY w.producto.id_Producto, w.producto.nombreProducto
-ORDER BY COUNT(w) DESC
-""")
+        SELECT new pe.edu.upc.grupo1_betteroption.dtos.ProductoDeseadoDto(p.nombreProducto, COUNT(p))
+        FROM Wishlist w
+        JOIN w.productos p
+        GROUP BY p.id_Producto, p.nombreProducto
+        ORDER BY COUNT(p) DESC
+    """)
     List<ProductoDeseadoDto> findProductosMasDeseados();
-
-
 }

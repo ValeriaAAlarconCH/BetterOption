@@ -4,12 +4,14 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pe.edu.upc.grupo1_betteroption.dtos.MicroempresaDto;
+import pe.edu.upc.grupo1_betteroption.dtos.UsuarioDto;
 import pe.edu.upc.grupo1_betteroption.entities.Microempresa;
 import pe.edu.upc.grupo1_betteroption.entities.Usuario;
 import pe.edu.upc.grupo1_betteroption.interfaces.IMicroempresaService;
 import pe.edu.upc.grupo1_betteroption.repositories.MicroempresaRepository;
 import pe.edu.upc.grupo1_betteroption.repositories.UsuarioRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -42,7 +44,20 @@ public class MicroempresaService implements IMicroempresaService {
 
     @Override
     public List<MicroempresaDto> getMicroempresas() {
-        return modelMapper.map(microempresarepository.findAll(), List.class);
+        List<Microempresa> lista = microempresarepository.findAll();
+        List<MicroempresaDto> dtoLista = new ArrayList<>();
+
+        for (Microempresa m : lista) {
+            MicroempresaDto dto = modelMapper.map(m, MicroempresaDto.class);
+
+            if (m.getUsuario() != null) {
+                dto.setUsuariodto(modelMapper.map(m.getUsuario(), UsuarioDto.class));
+            }
+
+            dtoLista.add(dto);
+        }
+
+        return dtoLista;
     }
 
     @Override
@@ -87,6 +102,13 @@ public class MicroempresaService implements IMicroempresaService {
     public MicroempresaDto obtenerPorId(Long id) {
         Microempresa microempresa = microempresarepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Microempresa no encontrada con ID: " + id));
-        return modelMapper.map(microempresa, MicroempresaDto.class);
+
+        MicroempresaDto dto = modelMapper.map(microempresa, MicroempresaDto.class);
+
+        if (microempresa.getUsuario() != null) {
+            dto.setUsuariodto(modelMapper.map(microempresa.getUsuario(), UsuarioDto.class));
+        }
+
+        return dto;
     }
 }
