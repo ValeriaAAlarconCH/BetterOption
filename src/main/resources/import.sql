@@ -15,7 +15,7 @@ INSERT INTO usuario (nombre, correo, password, rol, fecha_registro) VALUES ('Jua
 INSERT INTO usuario (nombre, correo, password, rol, fecha_registro) VALUES ('Admin Tech', 'admin@betteroption.com', '987654321', 'ROLE_ADMIN', '2025-05-20');
 INSERT INTO usuario (nombre, correo, password, rol, fecha_registro) VALUES ('Lucía Ramos', 'lucia@betteroption.com', 'clave123', 'ROLE_MICROEMPRESARIO', '2025-05-18');
 INSERT INTO usuario (nombre, correo, password, rol, fecha_registro) VALUES ('Carlos Mejía', 'carlos@gmail.com', 'pass456', 'ROLE_USER', '2025-05-15');
-INSERT INTO usuario (nombre, correo, password, rol, fecha_registro) VALUES ('Ana Torres', 'ana@empresa.com', 'secreta789', 'ROLE_MICROEMPRESARIO', '2025-05-10');
+INSERT INTO usuario (nombre, correo, password, rol, fecha_registro) VALUES ('Ana Torres', 'ana@empresa.com', 'secreta789', 'ROLE_MICROEMPRESARIO','2025-05-10');
 
 -- ===============================
 -- MICROEMPRESAS
@@ -38,11 +38,11 @@ INSERT INTO categoria (nombre_categoria, descripcion) VALUES ('Mascotas', 'Artí
 -- ===============================
 -- PRODUCTOS
 -- ===============================
-INSERT INTO producto (nombre_producto, descripcion, precio, stock, imagen, id_microempresa, id_categoria) VALUES ('Polera Urban Fit', 'Polera deportiva unisex con diseño moderno', 89.90, 50, 'https://example.com/polera.jpg', 1, 1);
-INSERT INTO producto (nombre_producto, descripcion, precio, stock, imagen, id_microempresa, id_categoria) VALUES ('Chips de Quinua', 'Snack crocante de quinua horneada', 12.50, 100, 'https://example.com/chips.jpg', 2, 2);
-INSERT INTO producto (nombre_producto, descripcion, precio, stock, imagen, id_microempresa, id_categoria) VALUES ('Leggins Flex', 'Leggins elásticos para entrenamiento', 75.00, 35, 'https://example.com/leggins.jpg', 1, 1);
-INSERT INTO producto (nombre_producto, descripcion, precio, stock, imagen, id_microempresa, id_categoria) VALUES ('Maceta Reciclada', 'Maceta hecha de materiales reciclados', 30.00, 20, 'https://example.com/maceta.jpg', 3, 3);
-INSERT INTO producto (nombre_producto, descripcion, precio, stock, imagen, id_microempresa, id_categoria) VALUES ('Barra Energética Andina', 'Barra con maca, kiwicha y cacao', 6.50, 150, 'https://example.com/barra.jpg', 2, 2);
+INSERT INTO producto (nombre_producto, descripcion, precio, stock, imagen, id_microempresa, id_categoria) VALUES ('Polera Urban Fit', 'Polera deportiva unisex con diseño moderno', 89.90, 50, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY5B-MWugB04O2TdvO3Li7VTGvfttdzVTOMQ&s', 1, 1);
+INSERT INTO producto (nombre_producto, descripcion, precio, stock, imagen, id_microempresa, id_categoria) VALUES ('Chips de Quinua', 'Snack crocante de quinua horneada', 12.50, 100, 'https://qfoods.pe/wp-content/uploads/2022/04/chips.png', 2, 2);
+INSERT INTO producto (nombre_producto, descripcion, precio, stock, imagen, id_microempresa, id_categoria) VALUES ('Leggins Flex', 'Leggins elásticos para entrenamiento', 75.00, 35, 'https://rematexperu.com/cdn/shop/files/12.png?v=1731374274&width=500?width=450&quality=90', 1, 1);
+INSERT INTO producto (nombre_producto, descripcion, precio, stock, imagen, id_microempresa, id_categoria) VALUES ('Maceta Reciclada', 'Maceta hecha de materiales reciclados', 30.00, 20, 'https://discomgrup.com/wp-content/webp-express/webp-images/uploads/2021/11/jardineras-plastico-reciclado-1-500x623.png.webp', 3, 3);
+INSERT INTO producto (nombre_producto, descripcion, precio, stock, imagen, id_microempresa, id_categoria) VALUES ('Barra Energética Andina', 'Barra con maca, kiwicha y cacao', 6.50, 150, 'https://mamalamasnacks.com/wp-content/uploads/2021/08/BARRA_Maca_Bitter-1.png', 2, 2);
 
 -- ===============================
 -- CATÁLOGO DE PROMOCIONES
@@ -63,13 +63,23 @@ INSERT INTO producto_catalogo (descuento_porcentaje, id_catalogopromociones, id_
 INSERT INTO producto_catalogo (descuento_porcentaje, id_catalogopromociones, id_producto) VALUES (12.0, 2, 5);
 
 -- ===============================
--- WISHLIST
+-- WISHLISTS
 -- ===============================
-INSERT INTO wishlist (fecha_agregado, id_usuario, id_producto) VALUES ('2025-05-20', 1, 1);
-INSERT INTO wishlist (fecha_agregado, id_usuario, id_producto) VALUES ('2025-04-28', 1, 2);
-INSERT INTO wishlist (fecha_agregado, id_usuario, id_producto) VALUES ('2025-04-16', 2, 3);
-INSERT INTO wishlist (fecha_agregado, id_usuario, id_producto) VALUES ('2025-06-01', 4, 5);
-INSERT INTO wishlist (fecha_agregado, id_usuario, id_producto) VALUES ('2025-06-02', 5, 4);
+INSERT INTO wishlist (fecha_agregado, id_usuario) VALUES ('2025-05-20', 1);
+INSERT INTO wishlist (fecha_agregado, id_usuario) VALUES ('2025-04-28', 1);
+INSERT INTO wishlist (fecha_agregado, id_usuario) VALUES ('2025-04-16', 2);
+INSERT INTO wishlist (fecha_agregado, id_usuario) VALUES ( '2025-06-01', 4);
+INSERT INTO wishlist (fecha_agregado, id_usuario) VALUES ( '2025-06-02', 5);
+
+-- ===============================
+-- RELACIÓN WISHLIST - PRODUCTO
+-- ===============================
+INSERT INTO wishlist_producto (wishlist_id, producto_id) VALUES (1, 1); -- Wishlist 1 → Producto 1
+INSERT INTO wishlist_producto (wishlist_id, producto_id) VALUES (1, 2); -- Wishlist 1 → Producto 2
+INSERT INTO wishlist_producto (wishlist_id, producto_id) VALUES (2, 3); -- Wishlist 2 → Producto 3
+INSERT INTO wishlist_producto (wishlist_id, producto_id) VALUES (3, 4); -- Wishlist 3 → Producto 4
+INSERT INTO wishlist_producto (wishlist_id, producto_id) VALUES (4, 5); -- Wishlist 4 → Producto 5
+INSERT INTO wishlist_producto (wishlist_id, producto_id) VALUES (5, 1); -- Wishlist 5 → Producto 1
 
 -- ===============================
 -- NOTIFICACIONES
