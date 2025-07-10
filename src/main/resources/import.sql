@@ -15,7 +15,7 @@ INSERT INTO usuario (nombre, correo, password, rol, fecha_registro) VALUES ('Jua
 INSERT INTO usuario (nombre, correo, password, rol, fecha_registro) VALUES ('Admin Tech', 'admin@betteroption.com', '987654321', 'ROLE_ADMIN', '2025-05-20');
 INSERT INTO usuario (nombre, correo, password, rol, fecha_registro) VALUES ('Lucía Ramos', 'lucia@betteroption.com', 'clave123', 'ROLE_MICROEMPRESARIO', '2025-05-18');
 INSERT INTO usuario (nombre, correo, password, rol, fecha_registro) VALUES ('Carlos Mejía', 'carlos@gmail.com', 'pass456', 'ROLE_USER', '2025-05-15');
-INSERT INTO usuario (nombre, correo, password, rol, fecha_registro) VALUES ('Ana Torres', 'ana@empresa.com', 'secreta789', 'ROLE_MICROEMPRESARIO', '2025-05-10');
+INSERT INTO usuario (nombre, correo, password, rol, fecha_registro) VALUES ('Ana Torres', 'ana@empresa.com', 'secreta789', 'ROLE_MICROEMPRESARIO','2025-05-10');
 
 -- ===============================
 -- MICROEMPRESAS
