@@ -30,6 +30,8 @@ public class Usuario {
     @Column(name = "rol", nullable = false)
     private String rol;
 
+
+
     @Column(name = "fecha_registro", nullable = false)
     private LocalDate fechaRegistro;
 }
